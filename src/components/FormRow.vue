@@ -4,7 +4,7 @@
     class="formRowDebug"
     type="flex"
     :gutter="16"
-    :class="{ noLabels, noHelp }"
+    :class="{ noLabels, noHelp, noExtra }"
   >
     <!-- TODO: Consider replacing a-row with div (below) for less component nodes -->
     <!-- <div vc="<FormRow>" class="formRowDebug ant-row-flex"
@@ -15,14 +15,16 @@
 <script>
 export default {
   name: "FormRow",
-  components: {},
   props: {
+    /** True = prevent inner form items from having "label" text. */
     noLabels: Boolean,
+    /** True = prevent inner form items from having "help" text. */
     noHelp: Boolean,
+    /** True = prevent inner form items from having "extra" field. */
+    noExtra: Boolean,
   },
 };
 </script>
-
 <style>
 .noHelp .ant-form-item {
   margin-bottom: 0;

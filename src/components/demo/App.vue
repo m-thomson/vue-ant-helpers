@@ -1,5 +1,6 @@
 <template>
   <div id="app" style="margin: 10px">
+    <h1>Demo</h1>
     <div class="demo-row">
       <div class="describe">
         <h2>Using defaults</h2>
@@ -73,21 +74,17 @@
   </div>
 </template>
 <script>
-import FormRow from "./components/FormRow";
-import FormItem from "./components/FormItem";
-import FormItemGroup from "./components/FormItemGroup";
-import MySelect from "./components/MySelect";
-import MyInput from "./components/MyInput";
-import MyGrouped from "./components/MyGrouped";
+import FormRow from "../FormRow";
+import FormItem from "../FormItem";
+import MyInput from "./MyInput";
+import MyGrouped from "./MyGrouped";
 
 export default {
   name: "App",
   components: {
     FormRow,
     FormItem,
-    FormItemGroup,
     MyInput,
-    MySelect,
     MyGrouped,
   },
   data() {
@@ -130,8 +127,8 @@ export default {
 <style>
 :root {
   --form-item-label-height:39.999px;
-  --form-item-element-height:40px; /* set with line-height */
-  --form-item-help-height:22px; /* font-size:14px, line-height:1.5, margin-top:-2px, margin-bottom:-1px */
+  --form-item-element-height:40px; /* antd sets this with line-height */
+  --form-item-help-height:22px; /* antd sets this with font-size:14px, line-height:1.5, margin-top:-2px, margin-bottom:-1px */
   --form-item-total-height:calc(var(--form-item-label-height) + var(--form-item-element-height) + var(--form-item-help-height));
   --form-row-gutter:12px;
 }
@@ -146,7 +143,6 @@ hr {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
   margin-top: 60px;
 }

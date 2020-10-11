@@ -11,9 +11,12 @@
 <script>
 import MyInput from "./MyInput";
 import MySelect from "./MySelect";
-import FormItem from "./FormItem";
-import FormRow from "./FormRow";
+import FormItem from "../FormItem";
+import FormRow from "../FormRow";
 
+/**
+ * This is an example of a grouped form item.
+ */
 export default {
   name: "MyGrouped",
   components: { MyInput, MySelect, FormItem, FormRow },
@@ -48,18 +51,7 @@ export default {
         }
       });
       return validity;
-      // const status = this.$refs.groupedInput.statusVal;
-      // const help = this.$refs.groupedInput.helpVal;
-      // return { status, help };
-      // if (!this.value || /^[0-9]*$/.test(this.value)) {
-      //   return { status: "", help: "This help provided by inner component" };
-      // }
-      // return {
-      //   status: "error",
-      //   help: "Inner component says: Only numbers allowed!",
-      // };
     },
   },
-  methods: {},
 };
 </script>

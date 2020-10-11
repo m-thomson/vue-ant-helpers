@@ -14,12 +14,12 @@
 </template>
 <script>
 /**
- * Flexible wrapper for form items that displays the label, the help and
- * intermediates the validation.
+ * This is a flexible wrapper for ant form items that displays the label, help, etxra text
+ * and intermediates the validation.
  *
  * Label, extra, help, status - These can be provided as strings by the wrapping component
- * or, they can be boolean true. If true than the inner component's version of these
- * values will be provided. If false or omitted, no value will be used (ie no label shown)
+ * or, they can be boolean true. If true, then the inner component's version of these
+ * values will be used. If false or omitted, no value will be used (ie no label shown)
  *
  * Validation - The wrapping component can provide values for 'status' and 'help',
  * otherwise, the internal components validation will be used (if any). That
@@ -33,7 +33,8 @@
 export default {
   name: "FormItem",
   /**
-   * NB: Order for label, help etc matters. Boolean must come first.
+   * NB: Boolean must come first where [Boolean, String] are the available prop types.
+   * This is so that the shorthand <FormItem label> can be used instead of <FormItem :label="true">
    */
   props: {
     /** How many columns to occupy (out of 24) */
@@ -49,7 +50,9 @@ export default {
   },
   data() {
     return {
+      /** The child component. */
       child: undefined,
+      /** The nearest <FormRow> ancestor */
       parentRow: this.$parent.$parent,
     };
   },
@@ -59,41 +62,34 @@ export default {
     else this.child = this.$slots.default[0].componentInstance;
   },
   computed: {
+    /** Computes the definitive label to use. */
     itemLabel() {
       if (this.child && this.label === true) return this.child.label;
       return typeof this.label === "string" ? this.label : "";
     },
+    /** Computes the definitive "extra"  text to use. */
     itemExtra() {
       if (this.child && this.extra === true) return this.child.extra;
       return typeof this.extra === "string" ? this.extra : "";
     },
+    /** Computes the definitive help text to use. */
     itemHelp() {
       if (this.childValidity && this.help === true)
         return this.childValidity.help;
       return typeof this.help === "string" ? this.help : "";
     },
+    /** Computes the definitive status. */
     itemStatus() {
       if (this.childValidity && this.status === true)
         return this.childValidity.status;
       return typeof this.status === "string" ? this.status : "";
     },
+    /** Returns the validity object from the child component. */
     childValidity() {
       return this.child && this.child.validity
         ? this.child.validity
         : undefined;
     },
-  },
-  methods: {
-    /**
-     * Rules: 1) Use prop value if provided, 2) If prop value is false
-     * then return undefined. 3) Otherwise defer to wrapped components' value.
-     */
-    // getValue(key) {
-    //   if (typeof this[key] === "string") return this[key];
-    //   if (this[key] === false) return undefined;
-    //   if (this.child.state[key] !== undefined) return this.child.state[key];
-    //   return undefined;
-    // },
   },
 };
 </script>
