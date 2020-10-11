@@ -1,10 +1,16 @@
 <template>
   <FormRow vc="<MyGrouped>">
     <FormItem ref="theInputComp" :stretch="12" help error status>
-      <MyInput v-model="state.inputValue" />
+      <MyInput
+        v-model="state.inputValue"
+        @input="$emit('update:inputValue', state.inputValue)"
+      />
     </FormItem>
     <FormItem ref="theSelectComp" :stretch="12" help error status>
-      <MySelect v-model="state.selectValue" />
+      <MySelect
+        v-model="state.selectValue"
+        @input="$emit('update:selectValue', state.selectValue)"
+      />
     </FormItem>
   </FormRow>
 </template>
@@ -15,7 +21,7 @@ import FormItem from "../FormItem";
 import FormRow from "../FormRow";
 
 /**
- * This is an example of a grouped form item.
+ * This is an example of a compound form item.
  */
 export default {
   name: "MyGrouped",
@@ -26,8 +32,8 @@ export default {
   },
   data() {
     return {
-      label: "A label provided by grouped component",
-      extra: "Extra provided by grouped component",
+      label: "A label provided by compound component",
+      extra: "Extra provided by compound component",
       formItems: undefined,
       state: {
         inputValue: this.inputValue,

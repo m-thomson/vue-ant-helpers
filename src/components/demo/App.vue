@@ -13,7 +13,7 @@
 
     <div class="demo-row">
       <div class="describe">
-        <h2>With defaults</h2>
+        <h2>1. With defaults</h2>
         <p>
           Here we are using the sub-components' defaults for label, help, extra
           and status. We are also using the default validation.
@@ -21,14 +21,14 @@
       </div>
       <FormRow>
         <FormItem status help label extra>
-          <my-input v-model="theValue0" />
+          <my-input v-model="value1" />
         </FormItem>
       </FormRow>
     </div>
 
     <div class="demo-row">
       <div class="describe">
-        <h2>With validation and help override</h2>
+        <h2>2. With validation and help override</h2>
         <p>
           This example uses validation provided by the containing component. In
           this example, instead of numbers, only letters are allowed.
@@ -36,14 +36,14 @@
       </div>
       <FormRow>
         <FormItem label :help="help" :status="status">
-          <my-input v-model="theValue3" placeholder="Enter text only..." />
+          <my-input v-model="value2" placeholder="Enter text only..." />
         </FormItem>
       </FormRow>
     </div>
 
     <div class="demo-row">
       <div class="describe">
-        <h2>Using slots</h2>
+        <h2>3. Using slots</h2>
         <p>
           Passing slotted content to inner component work as expected. This
           example also shows override of label and extra by outer component.
@@ -51,7 +51,7 @@
       </div>
       <FormRow>
         <FormItem :label="outerLabel" :extra="outerExtra">
-          <my-input v-model="theValue1" placeholder="Foo">
+          <my-input v-model="value3" placeholder="Foo">
             <template v-slot:prefix>
               <a-icon type="question" />
             </template>
@@ -73,15 +73,21 @@
 
     <div class="demo-row">
       <div class="describe">
-        <h2>With defaults</h2>
+        <h2>4. With defaults</h2>
         <p>
           Using the compound subcomponents' defaults. Notice that there is a
           unified label and "extra" text.
+          <br />Input value "{{ theInputVal4 }}" <br />Select value "{{
+            theSelectVal4
+          }}" <br />Error count: {{}}
         </p>
       </div>
       <FormRow>
-        <FormItem label help status extra>
-          <my-grouped />
+        <FormItem ref="MyGrouped" label help status extra>
+          <my-grouped
+            :inputValue.sync="theInputVal4"
+            :selectValue.sync="theSelectVal4"
+          />
         </FormItem>
       </FormRow>
     </div>
@@ -103,17 +109,16 @@ export default {
   },
   data() {
     return {
-      theValue0: undefined,
-      theValue1: undefined,
-      theValue2: undefined,
-      theValue3: undefined,
-      theSelectVal: "Jen",
+      value1: undefined,
+      value2: undefined,
+      value3: undefined,
+
+      theInputVal4: "",
+      theSelectVal4: "Jen",
+
       outerLabel: "Label overriden by outer",
       outerExtra: "Extra overriden by outer",
     };
-  },
-  methods: {
-    onInput() {},
   },
   computed: {
     help() {
@@ -123,7 +128,7 @@ export default {
       return this.validity.status;
     },
     validity() {
-      if (!this.theValue3 || /^[A-Za-z]*$/.test(this.theValue3)) {
+      if (!this.value2 || /^[A-Za-z]*$/.test(this.value2)) {
         return {
           status: "success",
           help: "This help provided by outter component",

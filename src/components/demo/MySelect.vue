@@ -4,10 +4,7 @@
     v-model="theValue"
     v-bind="attrs"
     style="width: 120px"
-    @change="
-      $emit('input', theValue);
-      $emit('change');
-    "
+    @change="$emit('input', theValue)"
   >
     <a-select-option value="Jack"> Jack </a-select-option>
     <a-select-option value="John"> John </a-select-option>

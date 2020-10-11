@@ -4,10 +4,7 @@
     v-model="state.value"
     v-bind="attrs"
     :placeholder="placeholder || 'Enter number only...'"
-    @input="
-      $emit('input', state.value);
-      $emit('change');
-    "
+    @input="$emit('input', state.value)"
   >
     <template v-slot:prefix>
       <slot name="prefix" />
