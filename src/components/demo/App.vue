@@ -1,10 +1,23 @@
 <template>
   <div id="app" style="margin: 10px">
-    <h1>Demo</h1>
+    <header>
+      <h1>Demo with simple sub-component</h1>
+      <p>
+        The text input sub-component has validation that allows only numbers.
+        <a
+          href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyInput.vue"
+          >Source.</a
+        >
+      </p>
+    </header>
+
     <div class="demo-row">
       <div class="describe">
-        <h2>Using defaults</h2>
-        <p>This inner component has validation that allows only numbers.</p>
+        <h2>With defaults</h2>
+        <p>
+          Here we are using the sub-components' defaults for label, help, extra
+          and status. We are also using the default validation.
+        </p>
       </div>
       <FormRow>
         <FormItem status help label extra>
@@ -12,7 +25,22 @@
         </FormItem>
       </FormRow>
     </div>
-    <hr />
+
+    <div class="demo-row">
+      <div class="describe">
+        <h2>With validation and help override</h2>
+        <p>
+          This example uses validation provided by the containing component. In
+          this example, instead of numbers, only letters are allowed.
+        </p>
+      </div>
+      <FormRow>
+        <FormItem label :help="help" :status="status">
+          <my-input v-model="theValue3" placeholder="Enter text only..." />
+        </FormItem>
+      </FormRow>
+    </div>
+
     <div class="demo-row">
       <div class="describe">
         <h2>Using slots</h2>
@@ -31,46 +59,32 @@
         </FormItem>
       </FormRow>
     </div>
-    <hr />
+    <header>
+      <h1>Demo with compound sub-component</h1>
+      <p>
+        The sub-component is a compound subcomponent comprising of the same text
+        input field <i>plus</i> a select dropdown (that has no validation).
+        <a
+          href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyGrouped.vue"
+          >Source.</a
+        >
+      </p>
+    </header>
+
     <div class="demo-row">
       <div class="describe">
-        <h2>Validation - inner</h2>
-      </div>
-      <FormRow>
-        <FormItem label help status>
-          <my-input v-model="theValue2" />
-        </FormItem>
-      </FormRow>
-    </div>
-    <hr />
-    <div class="demo-row">
-      <div class="describe">
-        <h2>Validation - outer</h2>
+        <h2>With defaults</h2>
         <p>
-          This example uses validation provided by the containing component. In
-          this example, instead of numbers, only letters are allowed
+          Using the compound subcomponents' defaults. Notice that there is a
+          unified label and "extra" text.
         </p>
       </div>
       <FormRow>
-        <FormItem label :help="help" :status="status">
-          <my-input v-model="theValue3" placeholder="Enter text only..." />
-        </FormItem>
-      </FormRow>
-    </div>
-    <hr />
-    <div class="demo-row">
-      <div class="describe">
-        <h2>Grouping</h2>
-        <p>...</p>
-      </div>
-      <FormRow>
-        <FormItem label help>
+        <FormItem label help status extra>
           <my-grouped />
         </FormItem>
       </FormRow>
     </div>
-    <hr />
-    <br />
   </div>
 </template>
 <script>
@@ -139,17 +153,30 @@ hr {
   height:1px;
 }
 
+h1 {
+  font-style:oblique;
+  margin-top:10px;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+header {
+  border:1px solid black;
+  padding:4px;
+  background-color: lightgray;
 }
 
 .demo-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap:8px;
+  border-top:1px solid black;
+  border-bottom:1px solid black;
+    padding:4px 0;
 }
 </style>
