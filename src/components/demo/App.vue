@@ -22,6 +22,7 @@
       <FormRow>
         <FormItem status help label extra>
           <my-input v-model="value1" />
+          <!-- <my-input v-model="value1" /> -->
         </FormItem>
       </FormRow>
     </div>

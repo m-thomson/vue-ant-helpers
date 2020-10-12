@@ -1,5 +1,10 @@
 <template>
-  <FormRow vc="<MyGrouped>">
+  <FormItemGroup
+    vc="<MyGrouped>"
+    label="My group label"
+    help="My group help"
+    extra="My group extra"
+  >
     <FormItem ref="theInputComp" :stretch="12" help error status>
       <MyInput
         v-model="state.inputValue"
@@ -12,20 +17,20 @@
         @input="$emit('update:selectValue', state.selectValue)"
       />
     </FormItem>
-  </FormRow>
+  </FormItemGroup>
 </template>
 <script>
 import MyInput from "./MyInput";
 import MySelect from "./MySelect";
 import FormItem from "../FormItem";
-import FormRow from "../FormRow";
+import FormItemGroup from "../FormItemGroup";
 
 /**
  * This is an example of a compound form item.
  */
 export default {
   name: "MyGrouped",
-  components: { MyInput, MySelect, FormItem, FormRow },
+  components: { MyInput, MySelect, FormItem, FormItemGroup },
   props: {
     inputValue: String,
     selectValue: String,
@@ -34,7 +39,6 @@ export default {
     return {
       label: "A label provided by compound component",
       extra: "Extra provided by compound component",
-      formItems: undefined,
       state: {
         inputValue: this.inputValue,
         selectValue: this.selectValue,
@@ -42,22 +46,8 @@ export default {
     };
   },
   mounted() {
-    this.formItems = this.$refs;
+    // this.formItems = this.$refs;
   },
-  computed: {
-    validity() {
-      const validity = {
-        errors: [],
-        warnings: [],
-      };
-      Object.values(this.formItems).forEach((v) => {
-        if (v.$options.name === "FormItem") {
-          if (v.itemStatus === "error") validity.errors.push(v.itemHelp);
-          if (v.itemStatus === "warning") validity.warnings.push(v.itemHelp);
-        }
-      });
-      return validity;
-    },
-  },
+  computed: {},
 };
 </script>

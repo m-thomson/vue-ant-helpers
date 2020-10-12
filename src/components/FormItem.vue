@@ -52,6 +52,10 @@ export default {
     return {
       /** The child component. */
       child: undefined,
+      /** The grand-child component. */
+      grandchild: undefined,
+      /**  */
+      descendant: undefined,
       /** The nearest <FormRow> ancestor */
       parentRow: this.$parent.$parent,
     };
@@ -59,36 +63,43 @@ export default {
   mounted() {
     if (this.$slots.default.length != 1)
       console.error("FormItem must have one (and only one) child.");
-    else this.child = this.$slots.default[0].componentInstance;
+    else {
+      const child = this.$slots.default[0].componentInstance;
+      const grandchild = child.$children[0];
+      if (grandchild.$options.name === "FormItemGroup") {
+        this.descendant = grandchild;
+      } else {
+        this.descendant = child;
+      }
+    }
   },
   computed: {
     /** Computes the definitive label to use. */
     itemLabel() {
-      if (this.child && this.label === true) return this.child.label;
-      return typeof this.label === "string" ? this.label : "";
+      return this.decideVal(this.label, () => this.descendant.label);
     },
     /** Computes the definitive "extra"  text to use. */
     itemExtra() {
-      if (this.child && this.extra === true) return this.child.extra;
-      return typeof this.extra === "string" ? this.extra : "";
+      return this.decideVal(this.extra, () => this.descendant.extra);
     },
     /** Computes the definitive help text to use. */
     itemHelp() {
-      if (this.childValidity && this.help === true)
-        return this.childValidity.help;
-      return typeof this.help === "string" ? this.help : "";
+      return this.decideVal(this.help, () => this.descendant.validity.help);
     },
     /** Computes the definitive status. */
     itemStatus() {
-      if (this.childValidity && this.status === true)
-        return this.childValidity.status;
-      return typeof this.status === "string" ? this.status : "";
+      return this.decideVal(this.status, () => this.descendant.validity.status);
     },
-    /** Returns the validity object from the child component. */
-    childValidity() {
-      return this.child && this.child.validity
-        ? this.child.validity
-        : undefined;
+  },
+  methods: {
+    decideVal(localValue, descendantValue) {
+      if (typeof localValue === "string") return localValue;
+      if (this.descendant) {
+        if (localValue === true) {
+          return descendantValue();
+        }
+      }
+      return "";
     },
   },
 };

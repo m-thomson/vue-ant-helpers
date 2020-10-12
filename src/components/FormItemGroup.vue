@@ -1,31 +1,60 @@
 <template>
-  <a-col vc="<FormItemGroup>">
-    <a-form-item :label="label" :help="help" :class="{ NoHelp: !help }">
-      <a-row type="flex" :gutter="16">
-        <slot />
-      </a-row>
-    </a-form-item>
-  </a-col>
+  <FormRow vc="<FormItemGroup>">
+    <slot />
+  </FormRow>
 </template>
 <script>
+import FormRow from "./FormRow";
+/**
+ * TODO
+ */
 export default {
   name: "FormItemGroup",
-  components: {},
+  components: { FormRow },
   props: {
+    /** How many columns to occupy (out of 24) */
+    stretch: Number,
     label: String,
+    extra: String,
     help: String,
+    status: String,
+  },
+  data() {
+    return {
+      /** Array of Child vNodes  */
+      formItems: [],
+    };
+  },
+  mounted() {
+    this.formItems = this.$slots.default.map((v) => v.componentInstance);
+  },
+  computed: {
+    validity() {
+      const errors = [];
+      const warnings = [];
+      Object.values(this.formItems).forEach((v) => {
+        if (v.$options.name === "FormItem") {
+          if (v.itemStatus === "error") errors.push(v.itemHelp);
+          if (v.itemStatus === "warning") warnings.push(v.itemHelp);
+        }
+      });
+      return errors.length === 0
+        ? { status: "", help: "" }
+        : {
+            status: "error",
+            help: errors.join(";"),
+          };
+    },
+  },
+  methods: {
+    /** Returns the validity object from the child component. */
+    childValidity() {
+      if (!this.children[0].validity) {
+        console.error("Child does not provide validation.");
+        return { help: "", status: "" };
+      }
+      return this.children[0].validity;
+    },
   },
 };
 </script>
-
-<style>
-[vc="<FormItemGroup>"] > .ant-form-item {
-  margin-bottom: 5px;
-}
-[vc="<FormItemGroup>"]
-  > .ant-form-item-with-help
-  [vc="<FormItem>"]
-  > .ant-form-item {
-  margin-bottom: 0;
-}
-</style>
