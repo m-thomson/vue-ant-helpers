@@ -8,13 +8,15 @@
       :extra="itemExtra"
       :validateStatus="itemStatus"
     >
-      <slot />
+      <slot/>
     </a-form-item>
   </a-col>
 </template>
-<script>
+<script lang="ts">
+import Vue from 'vue'
+// noinspection PointlessBooleanExpressionJS
 /**
- * This is a flexible wrapper for ant form items that displays the label, help, etxra text
+ * This is a flexible wrapper for ant form items that displays the label, help, extra text
  * and intermediates the validation.
  *
  * Label, extra, help, status - These can be provided as strings by the wrapping component
@@ -30,8 +32,8 @@
  * TODO: If parent <FormRow> has noHelp or noLabel, don't pass them
  * into the inner component.
  */
-export default {
-  name: "FormItem",
+export default Vue.extend({
+  name: 'FormItem',
   /**
    * NB: Boolean must come first where [Boolean, String] are the available prop types.
    * This is so that the shorthand <FormItem label> can be used instead of <FormItem :label="true">
@@ -50,57 +52,58 @@ export default {
   },
   data() {
     return {
-      /** The child component. */
-      child: undefined,
-      /** The grand-child component. */
-      grandchild: undefined,
-      /**  */
-      descendant: undefined,
+      /** The child or grandchild component */
+      descendant: undefined as any,
       /** The nearest <FormRow> ancestor */
       parentRow: this.$parent.$parent,
-    };
+    }
   },
   mounted() {
-    if (this.$slots.default.length != 1)
-      console.error("FormItem must have one (and only one) child.");
+    if (this.$slots.default?.length !== 1)
+      throw new Error(`FormItem requires single child node.`)
     else {
-      const child = this.$slots.default[0].componentInstance;
-      const grandchild = child.$children[0];
-      if (grandchild.$options.name === "FormItemGroup") {
-        this.descendant = grandchild;
+      const child = this.$slots.default![0].componentInstance
+      if (!child) {
+        throw new Error(`FormItem requires child node.`)
+      }
+      const grandchild = child.$children[0]
+      if (grandchild.$options.name === 'FormItemGroup') {
+        this.descendant = grandchild
       } else {
-        this.descendant = child;
+        this.descendant = child
       }
     }
   },
-  computed: {
-    /** Computes the definitive label to use. */
-    itemLabel() {
-      return this.decideVal(this.label, () => this.descendant.label);
-    },
-    /** Computes the definitive "extra"  text to use. */
-    itemExtra() {
-      return this.decideVal(this.extra, () => this.descendant.extra);
-    },
-    /** Computes the definitive help text to use. */
-    itemHelp() {
-      return this.decideVal(this.help, () => this.descendant.validity.help);
-    },
-    /** Computes the definitive status. */
-    itemStatus() {
-      return this.decideVal(this.status, () => this.descendant.validity.status);
-    },
-  },
   methods: {
-    decideVal(localValue, descendantValue) {
-      if (typeof localValue === "string") return localValue;
+    decideVal(localValue:string | boolean, descendantValue:Function):string {
+      if (typeof localValue === 'string') return localValue
       if (this.descendant) {
         if (localValue === true) {
-          return descendantValue();
+          return descendantValue()
         }
       }
-      return "";
+      return ''
     },
   },
-};
+  computed: {
+    /** Computes the definitive label to use. */
+    itemLabel():string {
+
+      return this.decideVal(this.label, () => this.descendant.label)
+    },
+    /** Computes the definitive "extra"  text to use. */
+    itemExtra():string {
+      return this.decideVal(this.extra, () => this.descendant.extra)
+    },
+    /** Computes the definitive help text to use. */
+    itemHelp():string {
+      return this.decideVal(this.help, () => this.descendant.validity.help)
+    },
+    /** Computes the definitive status. */
+    itemStatus():string {
+      return this.decideVal(this.status, () => this.descendant.validity.status)
+    },
+  },
+
+})
 </script>

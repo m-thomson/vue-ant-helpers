@@ -12,8 +12,10 @@
     <slot />
   </a-row>
 </template>
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   name: "FormRow",
   props: {
     /** True = prevent inner form items from having "label" text. */
@@ -23,8 +25,9 @@ export default {
     /** True = prevent inner form items from having "extra" field. */
     noExtra: Boolean,
   },
-};
+})
 </script>
+<!--suppress CssUnusedSymbol -->
 <style>
 .noHelp .ant-form-item {
   margin-bottom: 0;

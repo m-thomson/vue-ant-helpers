@@ -4,10 +4,7 @@
       <h1>Demo with simple sub-component</h1>
       <p>
         The text input sub-component has validation that allows only numbers.
-        <a
-          href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyInput.vue"
-          >Source.</a
-        >
+        <a href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyInput.vue">Source.</a>
       </p>
     </header>
 
@@ -15,13 +12,12 @@
       <div class="describe">
         <h2>1. With defaults</h2>
         <p>
-          Here we are using the sub-components' defaults for label, help, extra
-          and status. We are also using the default validation.
+          Here we are using the sub-components' defaults for label, help, extra and status. We are also using the default validation.
         </p>
       </div>
       <FormRow>
         <FormItem status help label extra>
-          <my-input v-model="value1" />
+          <my-input v-model="demo1Val"/>
           <!-- <my-input v-model="value1" /> -->
         </FormItem>
       </FormRow>
@@ -31,13 +27,12 @@
       <div class="describe">
         <h2>2. With validation and help override</h2>
         <p>
-          This example uses validation provided by the containing component. In
-          this example, instead of numbers, only letters are allowed.
+          This example uses validation provided by the containing component. In this example, instead of numbers, only letters are allowed.
         </p>
       </div>
       <FormRow>
-        <FormItem label :help="help" :status="status">
-          <my-input v-model="value2" placeholder="Enter text only..." />
+        <FormItem label :help="validity.help" :status="validity.status">
+          <my-input v-model="demo2Val" placeholder="Enter text only..."/>
         </FormItem>
       </FormRow>
     </div>
@@ -46,29 +41,26 @@
       <div class="describe">
         <h2>3. Using slots</h2>
         <p>
-          Passing slotted content to inner component work as expected. This
-          example also shows override of label and extra by outer component.
+          Passing slotted content to inner component work as expected. This example also shows override of label and extra by outer component.
         </p>
       </div>
       <FormRow>
-        <FormItem :label="outerLabel" :extra="outerExtra">
-          <my-input v-model="value3" placeholder="Foo">
+        <FormItem label='Label overridden by outer' extra='Extra overridden by outer'>
+          <my-input v-model="demo3Val" placeholder="Foo">
             <template v-slot:prefix>
-              <a-icon type="question" />
+              <a-icon type="question"/>
             </template>
           </my-input>
         </FormItem>
       </FormRow>
     </div>
+
     <header>
       <h1>Demo with compound sub-component</h1>
       <p>
-        The sub-component is a compound subcomponent comprising of the same text
-        input field <i>plus</i> a select dropdown (that has no validation).
-        <a
-          href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyGrouped.vue"
-          >Source.</a
-        >
+        The sub-component is a compound subcomponent comprising of the same text input field
+        <i>plus</i> a select dropdown (that has no validation).
+        <a href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyGrouped.vue">Source.</a>
       </p>
     </header>
 
@@ -76,32 +68,38 @@
       <div class="describe">
         <h2>4. With defaults</h2>
         <p>
-          Using the compound subcomponents' defaults. Notice that there is a
-          unified label and "extra" text.
-          <br />Input value "{{ theInputVal4 }}" <br />Select value "{{
-            theSelectVal4
-          }}" <br />Error count: {{}}
+          Using the compound subcomponents' defaults. Notice that there is a unified label and "extra" text.
+          <br/>
+          Input value "{{demo4InputVal}}"
+          <br/>
+          Select value "{{
+            demo4SelectVal
+          }}"
+          <br/>
+          Error count: {{}}
         </p>
       </div>
       <FormRow>
         <FormItem ref="MyGrouped" label help status extra>
           <my-grouped
-            :inputValue.sync="theInputVal4"
-            :selectValue.sync="theSelectVal4"
+            :inputValue.sync="demo4InputVal"
+            :selectValue.sync="demo4SelectVal"
           />
         </FormItem>
       </FormRow>
     </div>
   </div>
 </template>
-<script>
-import FormRow from "../FormRow";
-import FormItem from "../FormItem";
-import MyInput from "./MyInput";
-import MyGrouped from "./MyGrouped";
+<script lang="ts">
+import Vue from 'vue'
+import FormRow from '../FormRow.vue'
+import FormItem from '../FormItem.vue'
+import MyInput from './MyInput.vue'
+import MyGrouped from './MyGrouped.vue'
+import { TValidity } from '@/components/FormSVC'
 
-export default {
-  name: "App",
+export default Vue.extend({
+  name: 'App',
   components: {
     FormRow,
     FormItem,
@@ -110,79 +108,70 @@ export default {
   },
   data() {
     return {
-      value1: undefined,
-      value2: undefined,
-      value3: undefined,
-
-      theInputVal4: "",
-      theSelectVal4: "Jen",
-
-      outerLabel: "Label overriden by outer",
-      outerExtra: "Extra overriden by outer",
-    };
+      demo1Val: undefined as undefined | string,
+      demo2Val: undefined as undefined | string,
+      demo3Val: undefined as undefined | string,
+      demo4InputVal: '',
+      demo4SelectVal: 'Jen',
+    }
   },
   computed: {
-    help() {
-      return this.validity.help;
-    },
-    status() {
-      return this.validity.status;
-    },
-    validity() {
-      if (!this.value2 || /^[A-Za-z]*$/.test(this.value2)) {
+    validity():TValidity {
+      if (!this.demo2Val || /^[A-Za-z]*$/.test(this.demo2Val)) {
         return {
-          status: "success",
-          help: "This help provided by outter component",
-        };
+          status: 'success',
+          help: 'This help provided by outer component',
+        }
       }
       return {
-        status: "error",
-        help: "Outer component says: Only letters allowed!",
-      };
+        status: 'error',
+        help: 'Outer component says: Only letters allowed!',
+      }
     },
   },
-};
+})
 </script>
 
+<!--suppress CssFloatPxLength -->
 <style>
 :root {
-  --form-item-label-height:39.999px;
-  --form-item-element-height:40px; /* antd sets this with line-height */
-  --form-item-help-height:22px; /* antd sets this with font-size:14px, line-height:1.5, margin-top:-2px, margin-bottom:-1px */
-  --form-item-total-height:calc(var(--form-item-label-height) + var(--form-item-element-height) + var(--form-item-help-height));
-  --form-row-gutter:12px;
+  --form-item-label-height:   39.999px; /* antd value */
+  --form-item-element-height: 40px; /* antd sets this with line-height */
+  --form-item-help-height:    22px; /* antd sets this with font-size:14px, line-height:1.5, margin-top:-2px, margin-bottom:-1px */
+  --form-item-total-height:   calc(var(--form-item-label-height) + var(--form-item-element-height) + var(--form-item-help-height));
+  --form-row-gutter:          12px;
 }
 
 hr {
-  margin:0;
-  padding:0;
-  height:1px;
+  margin:  0;
+  padding: 0;
+  height:  1px;
 }
 
 h1 {
-  font-style:oblique;
-  margin-top:10px;
+  font-style: oblique;
+  margin-top: 10px;
 }
 
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  font-family:             "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing:  antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color:                   #2c3e50;
 }
 
 header {
-  border:1px solid black;
-  padding:4px;
+  border:           1px solid black;
+  padding:          4px;
   background-color: lightgray;
 }
 
 .demo-row {
-  display: grid;
+  display:               grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap:8px;
-  border-top:1px solid black;
-  border-bottom:1px solid black;
-    padding:4px 0;
+  grid-gap:              8px;
+  border-top:            1px solid black;
+  border-bottom:         1px solid black;
+  padding:               4px 0;
 }
 </style>

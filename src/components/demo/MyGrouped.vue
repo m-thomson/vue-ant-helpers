@@ -19,17 +19,18 @@
     </FormItem>
   </FormItemGroup>
 </template>
-<script>
-import MyInput from "./MyInput";
-import MySelect from "./MySelect";
-import FormItem from "../FormItem";
-import FormItemGroup from "../FormItemGroup";
+<script lang="ts">
+import Vue from 'vue'
+import MyInput from './MyInput.vue'
+import MySelect from './MySelect.vue'
+import FormItem from '../FormItem.vue'
+import FormItemGroup from '../FormItemGroup.vue'
 
 /**
  * This is an example of a compound form item.
  */
-export default {
-  name: "MyGrouped",
+export default Vue.extend({
+  name: 'MyGrouped',
   components: { MyInput, MySelect, FormItem, FormItemGroup },
   props: {
     inputValue: String,
@@ -37,17 +38,13 @@ export default {
   },
   data() {
     return {
-      label: "A label provided by compound component",
-      extra: "Extra provided by compound component",
+      label: 'A label provided by compound component',
+      extra: 'Extra provided by compound component',
       state: {
         inputValue: this.inputValue,
         selectValue: this.selectValue,
       },
-    };
+    }
   },
-  mounted() {
-    // this.formItems = this.$refs;
-  },
-  computed: {},
-};
+})
 </script>

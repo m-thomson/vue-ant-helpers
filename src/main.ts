@@ -21,6 +21,7 @@ Vue.use(Row);
 Vue.use(Input);
 Vue.use(Icon);
 Vue.use(Select);
+Vue.use(Select.Option);
 Vue.config.productionTip = false;
 
 new Vue({
