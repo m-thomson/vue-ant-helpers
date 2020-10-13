@@ -1,7 +1,6 @@
 <template>
-  <a-col vc="<FormItem>" :span="stretch">
-    <!-- TODO: Possibly replace a-col node with div -->
-    <!-- <div class="ant-col" style="padding-left: 8px; padding-right: 8px"> -->
+  <!-- This is the same as <a-col :span="stretch"> but has one less vnode -->
+  <div class="ant-col" :class="stretchClass" style="padding-left: 8px; padding-right: 8px">
     <a-form-item
       :label="itemLabel"
       :help="itemHelp"
@@ -10,17 +9,18 @@
     >
       <slot/>
     </a-form-item>
-  </a-col>
+  </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { TFormItemNode } from '@/components/FormSVC'
 // noinspection PointlessBooleanExpressionJS
 /**
  * This is a flexible wrapper for ant form items that displays the label, help, extra text
  * and intermediates the validation.
  *
- * Label, extra, help, status - These can be provided as strings by the wrapping component
- * or, they can be boolean true. If true, then the inner component's version of these
+ * Label, extra, help, status - These can be provided as strings by the parent component
+ * or, they can be boolean true. If true, then the child component's version of these
  * values will be used. If false or omitted, no value will be used (ie no label shown)
  *
  * Validation - The wrapping component can provide values for 'status' and 'help',
@@ -30,7 +30,7 @@ import Vue from 'vue'
  * Slots (named or otherwise) - Slots provided by the wrapped component should work.
  *
  * TODO: If parent <FormRow> has noHelp or noLabel, don't pass them
- * into the inner component.
+ * into the child component.
  */
 export default Vue.extend({
   name: 'FormItem',
@@ -40,7 +40,7 @@ export default Vue.extend({
    */
   props: {
     /** How many columns to occupy (out of 24) */
-    stretch: Number,
+    stretch: { type:Number, validator: (v) => (v >= 0 && v <= 24) },
     /** True = use default, False = none, String = override */
     label: [Boolean, String],
     /** True = use default, False = none, String = override */
@@ -53,34 +53,25 @@ export default Vue.extend({
   data() {
     return {
       /** The child or grandchild component */
-      descendant: undefined as any,
+      child: undefined as undefined|TFormItemNode,
       /** The nearest <FormRow> ancestor */
       parentRow: this.$parent.$parent,
+      /** Generate correct ant-col-* class */
+      stretchClass: this.stretch ? 'ant-col-' + this.stretch : undefined,
     }
   },
   mounted() {
     if (this.$slots.default?.length !== 1)
       throw new Error(`FormItem requires single child node.`)
-    else {
-      const child = this.$slots.default![0].componentInstance
-      if (!child) {
-        throw new Error(`FormItem requires child node.`)
-      }
-      const grandchild = child.$children[0]
-      if (grandchild.$options.name === 'FormItemGroup') {
-        this.descendant = grandchild
-      } else {
-        this.descendant = child
-      }
-    }
+    this.child = this.$slots.default![0].componentInstance as TFormItemNode
   },
   methods: {
-    decideVal(localValue:string | boolean, descendantValue:Function):string {
-      if (typeof localValue === 'string') return localValue
-      if (this.descendant) {
-        if (localValue === true) {
-          return descendantValue()
-        }
+    /** Returns the parent or child value */
+    parentOrChildVal(parentVal:string | boolean, childValFN:Function):string {
+      if (typeof parentVal === 'string') return parentVal
+      if (this.child && parentVal === true) {
+        const descendantVal = childValFN()
+        if (descendantVal) return descendantVal
       }
       return ''
     },
@@ -88,22 +79,20 @@ export default Vue.extend({
   computed: {
     /** Computes the definitive label to use. */
     itemLabel():string {
-
-      return this.decideVal(this.label, () => this.descendant.label)
+      return this.parentOrChildVal(this.label, () => this.child?.label)
     },
     /** Computes the definitive "extra"  text to use. */
     itemExtra():string {
-      return this.decideVal(this.extra, () => this.descendant.extra)
+      return this.parentOrChildVal(this.extra, () => this.child?.extra)
     },
     /** Computes the definitive help text to use. */
     itemHelp():string {
-      return this.decideVal(this.help, () => this.descendant.validity.help)
+      return this.parentOrChildVal(this.help, () => this.child?.validity?.help)
     },
     /** Computes the definitive status. */
     itemStatus():string {
-      return this.decideVal(this.status, () => this.descendant.validity.status)
+      return this.parentOrChildVal(this.status, () => this.child?.validity?.status)
     },
   },
-
 })
 </script>

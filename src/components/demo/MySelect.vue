@@ -6,16 +6,16 @@
     style="width: 120px"
     @change="$emit('input', state.value)"
   >
-    <a-select-option value="Jack"> Jack</a-select-option>
-    <a-select-option value="John"> John</a-select-option>
-    <a-select-option value="Error"> (Trigger error)</a-select-option>
-    <a-select-option value="disabled" disabled> Disabled</a-select-option>
+    <a-select-option value="Jack">Jack</a-select-option>
+    <a-select-option value="John">John</a-select-option>
+    <a-select-option value="Error">(Trigger error)</a-select-option>
     <a-select-option value="Jen"> Jen</a-select-option>
   </a-select>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import { Select } from 'ant-design-vue'
+import { TValidity } from '@/components/FormSVC'
 
 export default Vue.extend({
   name: 'MySelect',
@@ -28,26 +28,26 @@ export default Vue.extend({
   },
   data() {
     return {
-      label: 'A label provided by inner component',
-      extra: 'Extra provided by inner component',
+      label: 'Label provided by child',
+      extra: 'Extra provided by child',
       state: {
         value: this.value,
       },
     }
   },
   computed: {
-    validity() {
-      if (this.state.value === 'Error')
+    validity():TValidity {
+      if (this.state.value !== 'Error') {
         return {
-          status: 'error',
-          help: 'Inner component says: Wrong one!',
+          status: '',
+          help: 'This help provided by child',
         }
+      }
       return {
-        status: '',
-        help: 'This help provided by inner component',
+        status: 'error',
+        help: 'Child says: Wrong one!',
       }
     },
   },
-  methods: {},
 })
 </script>

@@ -3,31 +3,30 @@
     <header>
       <h1>Demo with simple sub-component</h1>
       <p>
-        The text input sub-component has validation that allows only numbers.
+        Note: The text input sub-component has validation that allows only numbers.
         <a href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyInput.vue">Source.</a>
       </p>
     </header>
-
+    <!-----------------------[1]------------------------->
     <div class="demo-row">
       <div class="describe">
         <h2>1. With defaults</h2>
         <p>
-          Here we are using the sub-components' defaults for label, help, extra and status. We are also using the default validation.
+          Here we are using the child's defaults for label, help, extra and status. We are also using the child's validation.
         </p>
       </div>
       <FormRow>
         <FormItem status help label extra>
           <my-input v-model="demo1Val"/>
-          <!-- <my-input v-model="value1" /> -->
         </FormItem>
       </FormRow>
     </div>
-
+    <!-----------------------[2]------------------------->
     <div class="demo-row">
       <div class="describe">
         <h2>2. With validation and help override</h2>
         <p>
-          This example uses validation provided by the containing component. In this example, instead of numbers, only letters are allowed.
+          This example uses validation provided by the parent component. In this example, instead of numbers, only letters are allowed.
         </p>
       </div>
       <FormRow>
@@ -36,17 +35,18 @@
         </FormItem>
       </FormRow>
     </div>
-
+    <!-----------------------[3]------------------------->
     <div class="demo-row">
       <div class="describe">
         <h2>3. Using slots</h2>
         <p>
-          Passing slotted content to inner component work as expected. This example also shows override of label and extra by outer component.
+          Passing slotted content to child component work as expected. This example also shows override of label and extra by parent.
         </p>
       </div>
       <FormRow>
         <FormItem label='Label overridden by outer' extra='Extra overridden by outer'>
           <my-input v-model="demo3Val" placeholder="Foo">
+            <!-- slotted content -->
             <template v-slot:prefix>
               <a-icon type="question"/>
             </template>
@@ -54,27 +54,25 @@
         </FormItem>
       </FormRow>
     </div>
-
+    <!-----------------------[H]------------------------->
     <header>
-      <h1>Demo with compound sub-component</h1>
+      <h1>Demo with grouped child</h1>
       <p>
-        The sub-component is a compound subcomponent comprising of the same text input field
-        <i>plus</i> a select dropdown (that has no validation).
+        The child component is a grouped component comprising of the same text input field
+        <i>plus</i> a select dropdown.
         <a href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyGrouped.vue">Source.</a>
       </p>
     </header>
-
+    <!-----------------------[4]------------------------->
     <div class="demo-row">
       <div class="describe">
         <h2>4. With defaults</h2>
         <p>
-          Using the compound subcomponents' defaults. Notice that there is a unified label and "extra" text.
+          Using the child's defaults. Notice that there is a unified label and "extra" text.
           <br/>
           Input value "{{demo4InputVal}}"
           <br/>
-          Select value "{{
-            demo4SelectVal
-          }}"
+          Select value "{{demo4SelectVal}}"
           <br/>
           Error count: {{}}
         </p>
@@ -88,6 +86,7 @@
         </FormItem>
       </FormRow>
     </div>
+    <!------------------------------------------------------>
   </div>
 </template>
 <script lang="ts">

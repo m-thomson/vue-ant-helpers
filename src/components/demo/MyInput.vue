@@ -13,6 +13,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { TValidity } from '@/components/FormSVC'
 
 export default Vue.extend({
   name: 'MyInput',
@@ -22,24 +23,24 @@ export default Vue.extend({
   },
   data() {
     return {
-      label: 'A label provided by inner component',
-      extra: 'Extra provided by inner component',
+      label: 'Label provided by child',
+      extra: 'Extra provided by child',
       state: {
         value: this.value,
       },
     }
   },
   computed: {
-    validity() {
+    validity():TValidity {
       if (!this.value || /^[0-9]*$/.test(this.value)) {
         return {
           status: '',
-          help: 'This help provided by inner component',
+          help: 'Help provided by child',
         }
       }
       return {
         status: 'error',
-        help: 'Inner component says: Only numbers allowed!',
+        help: 'Child says: Only numbers allowed!',
       }
     },
   },
