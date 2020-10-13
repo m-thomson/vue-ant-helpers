@@ -8,7 +8,8 @@
   >
     <a-select-option value="Jack">Jack</a-select-option>
     <a-select-option value="John">John</a-select-option>
-    <a-select-option value="Error">(Trigger error)</a-select-option>
+    <a-select-option value="_Error">(Trigger error)</a-select-option>
+    <a-select-option value="_Warn">(Trigger warn)</a-select-option>
     <a-select-option value="Jen"> Jen</a-select-option>
   </a-select>
 </template>
@@ -37,15 +38,21 @@ export default Vue.extend({
   },
   computed: {
     validity():TValidity {
-      if (this.state.value !== 'Error') {
+      if (this.state.value === '_Error') {
         return {
-          status: '',
-          help: 'This help provided by child',
+          status: 'error',
+          help: 'Child says: Wrong one!',
+        }
+      }
+      if (this.state.value === '_Warn') {
+        return {
+          status: 'warning',
+          help: 'Child says: Wrong one!',
         }
       }
       return {
-        status: 'error',
-        help: 'Child says: Wrong one!',
+        status: '',
+        help: 'This help provided by child',
       }
     },
   },

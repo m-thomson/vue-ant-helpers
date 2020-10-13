@@ -1,19 +1,19 @@
 <template>
   <!-- This is the same as <a-col :span="stretch"> but has one less vnode -->
-  <div class="ant-col" :class="stretchClass" style="padding-left: 8px; padding-right: 8px">
+  <div vc="<FormItem>" class="form-col" :class="stretchClass">
     <a-form-item
       :label="itemLabel"
-      :help="itemHelp"
       :extra="itemExtra"
-      :validateStatus="itemStatus"
+      :help="validity.help"
+      :validateStatus="validity.status"
     >
-      <slot/>
+      <slot />
     </a-form-item>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { TFormItemNode } from '@/components/FormSVC'
+import { groupValidity, parentOrChildVal, TFormItemNode, TValidity } from '@/components/FormSVC'
 // noinspection PointlessBooleanExpressionJS
 /**
  * This is a flexible wrapper for ant form items that displays the label, help, extra text
@@ -48,50 +48,42 @@ export default Vue.extend({
     /** True = use default, False = none, String = override */
     help: [Boolean, String],
     /** True = use default, False = none, String = override */
-    status: [Boolean, String],
+    status: {type:[Boolean, String],default:true}
   },
   data() {
     return {
-      /** The child or grandchild component */
-      child: undefined as undefined|TFormItemNode,
-      /** The nearest <FormRow> ancestor */
-      parentRow: this.$parent.$parent,
+      /** Array of Child vNodes  */
+      children: [] as TFormItemNode[],
       /** Generate correct ant-col-* class */
       stretchClass: this.stretch ? 'ant-col-' + this.stretch : undefined,
     }
   },
   mounted() {
-    if (this.$slots.default?.length !== 1)
-      throw new Error(`FormItem requires single child node.`)
-    this.child = this.$slots.default![0].componentInstance as TFormItemNode
-  },
-  methods: {
-    /** Returns the parent or child value */
-    parentOrChildVal(parentVal:string | boolean, childValFN:Function):string {
-      if (typeof parentVal === 'string') return parentVal
-      if (this.child && parentVal === true) {
-        const descendantVal = childValFN()
-        if (descendantVal) return descendantVal
-      }
-      return ''
-    },
+    this.children = this.$slots.default!.map((v) => v.componentInstance) as TFormItemNode[]
   },
   computed: {
     /** Computes the definitive label to use. */
     itemLabel():string {
-      return this.parentOrChildVal(this.label, () => this.child?.label)
+      return parentOrChildVal(this.label, () => {
+        if (this.children.length > 1)
+          throw new Error(`Attempt to use child label but there are multiple children.`)
+        return this.children.length === 1 ? this.children[0].label : ''
+      })
     },
     /** Computes the definitive "extra"  text to use. */
     itemExtra():string {
-      return this.parentOrChildVal(this.extra, () => this.child?.extra)
+      return parentOrChildVal(this.extra, () => {
+        if (this.children.length > 1)
+          throw new Error(`Attempt to use child extra but there are multiple children.`)
+        return this.children.length === 1 ? this.children[0].extra : ''
+      })
     },
-    /** Computes the definitive help text to use. */
-    itemHelp():string {
-      return this.parentOrChildVal(this.help, () => this.child?.validity?.help)
-    },
-    /** Computes the definitive status. */
-    itemStatus():string {
-      return this.parentOrChildVal(this.status, () => this.child?.validity?.status)
+    validity():TValidity {
+      const validities = groupValidity(this.children)
+      return {
+        help: parentOrChildVal(this.help, () => validities.help),
+        status: parentOrChildVal(this.status, () => validities.status)
+      }
     },
   },
 })

@@ -1,9 +1,9 @@
 <template>
   <div id="app" style="margin: 10px">
     <header>
-      <h1>Demo with simple sub-component</h1>
+      <h1>Demo with simple child</h1>
       <p>
-        Note: The text input sub-component has validation that allows only numbers.
+        Note: The text input child component has validation that allows only numbers.
         <a href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyInput.vue">Source.</a>
       </p>
     </header>
@@ -15,11 +15,11 @@
           Here we are using the child's defaults for label, help, extra and status. We are also using the child's validation.
         </p>
       </div>
-      <FormRow>
-        <FormItem status help label extra>
+      <div class="form-row">
+        <FormItem ref="demo1" help label extra>
           <my-input v-model="demo1Val"/>
         </FormItem>
-      </FormRow>
+      </div>
     </div>
     <!-----------------------[2]------------------------->
     <div class="demo-row">
@@ -29,11 +29,11 @@
           This example uses validation provided by the parent component. In this example, instead of numbers, only letters are allowed.
         </p>
       </div>
-      <FormRow>
+      <div class="form-row">
         <FormItem label :help="validity.help" :status="validity.status">
           <my-input v-model="demo2Val" placeholder="Enter text only..."/>
         </FormItem>
-      </FormRow>
+      </div>
     </div>
     <!-----------------------[3]------------------------->
     <div class="demo-row">
@@ -43,7 +43,7 @@
           Passing slotted content to child component work as expected. This example also shows override of label and extra by parent.
         </p>
       </div>
-      <FormRow>
+      <div class="form-row">
         <FormItem label='Label overridden by outer' extra='Extra overridden by outer'>
           <my-input v-model="demo3Val" placeholder="Foo">
             <!-- slotted content -->
@@ -52,7 +52,7 @@
             </template>
           </my-input>
         </FormItem>
-      </FormRow>
+      </div>
     </div>
     <!-----------------------[H]------------------------->
     <header>
@@ -77,21 +77,20 @@
           Error count: {{}}
         </p>
       </div>
-      <FormRow>
+      <div class="form-row">
         <FormItem ref="MyGrouped" label help status extra>
           <my-grouped
             :inputValue.sync="demo4InputVal"
             :selectValue.sync="demo4SelectVal"
           />
         </FormItem>
-      </FormRow>
+      </div>
     </div>
     <!------------------------------------------------------>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import FormRow from '../FormRow.vue'
 import FormItem from '../FormItem.vue'
 import MyInput from './MyInput.vue'
 import MyGrouped from './MyGrouped.vue'
@@ -100,7 +99,6 @@ import { TValidity } from '@/components/FormSVC'
 export default Vue.extend({
   name: 'App',
   components: {
-    FormRow,
     FormItem,
     MyInput,
     MyGrouped,
@@ -172,5 +170,20 @@ header {
   border-top:            1px solid black;
   border-bottom:         1px solid black;
   padding:               4px 0;
+}
+
+.form-row {
+  margin-left:  -8px;
+  margin-right: -8px;
+  display:      flex;
+  flex-flow:    row wrap;
+}
+
+/*noinspection CssUnusedSymbol*/
+.form-col {
+  padding-left:  8px !important;
+  padding-right: 8px !important;
+  position:      relative;
+  min-height:    1px;
 }
 </style>
