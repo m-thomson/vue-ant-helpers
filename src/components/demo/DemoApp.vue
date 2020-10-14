@@ -16,9 +16,9 @@
         </p>
       </div>
       <div class="form-row">
-        <FormItem ref="demo1" help label extra>
+        <ShowFormItem ref="demo1" help label extra>
           <DemoInput v-model="demo1Val"/>
-        </FormItem>
+        </ShowFormItem>
       </div>
     </div>
     <!-----------------------[2]------------------------->
@@ -30,9 +30,9 @@
         </p>
       </div>
       <div class="form-row">
-        <FormItem label :help="validity.help" :status="validity.status">
+        <ShowFormItem label :help="validity.help" :status="validity.status">
           <DemoInput v-model="demo2Val" placeholder="Enter text only..."/>
-        </FormItem>
+        </ShowFormItem>
       </div>
     </div>
     <!-----------------------[3]------------------------->
@@ -44,14 +44,14 @@
         </p>
       </div>
       <div class="form-row">
-        <FormItem label='Label overridden by outer' extra='Extra overridden by outer'>
+        <ShowFormItem label='Label overridden by outer' extra='Extra overridden by outer'>
           <DemoInput v-model="demo3Val" placeholder="Foo">
             <!-- slotted content -->
             <template v-slot:prefix>
               <a-icon type="question"/>
             </template>
           </DemoInput>
-        </FormItem>
+        </ShowFormItem>
       </div>
     </div>
     <!-----------------------[H]------------------------->
@@ -78,12 +78,12 @@
         </p>
       </div>
       <div class="form-row">
-        <FormItem ref="MyGrouped" label help status extra>
+        <ShowFormItem ref="MyGrouped" label help status extra>
           <DemoGroupedInput
             :inputValue.sync="demo4InputVal"
             :selectValue.sync="demo4SelectVal"
           />
-        </FormItem>
+        </ShowFormItem>
       </div>
     </div>
     <!------------------------------------------------------>
@@ -91,7 +91,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import FormItem from '../FormItem.vue'
+import ShowFormItem from '../ShowFormItem.vue'
 import DemoInput from './DemoInput.vue'
 import DemoGroupedInput from './DemoGroupedInput.vue'
 import { TValidity } from '@/components/FormSVC'
@@ -99,7 +99,7 @@ import { TValidity } from '@/components/FormSVC'
 export default Vue.extend({
   name: 'App',
   components: {
-    FormItem,
+    ShowFormItem,
     DemoInput,
     DemoGroupedInput,
   },

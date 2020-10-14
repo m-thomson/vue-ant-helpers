@@ -1,24 +1,24 @@
 <template>
   <div>
-    <FormItem :stretch="12" help error status class="merge-right">
+    <ShowFormItem :stretch="12" help error status class="merge-right">
       <MyInput
         v-model="state.inputValue"
         @input="onChange('inputValue', state.inputValue)"
       />
-    </FormItem>
-    <FormItem :stretch="12" help error status class="merge-left">
+    </ShowFormItem>
+    <ShowFormItem :stretch="12" help error status class="merge-left">
       <MySelect
         v-model="state.selectValue"
         @input="onChange('selectValue', state.selectValue)"
       />
-    </FormItem>
+    </ShowFormItem>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import MyInput from './DemoInput.vue'
 import MySelect from './DemoSelect.vue'
-import FormItem from '../FormItem.vue'
+import ShowFormItem from '../ShowFormItem.vue'
 import { groupValidity } from '@/components/FormSVC'
 
 const defaultHelp = "Group help"
@@ -28,7 +28,7 @@ const defaultHelp = "Group help"
  */
 export default Vue.extend({
   name: 'MyGrouped',
-  components: { MyInput, MySelect, FormItem },
+  components: { MyInput, MySelect, ShowFormItem },
   props: {
     inputValue: String,
     selectValue: String,
