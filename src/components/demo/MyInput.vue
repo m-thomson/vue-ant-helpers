@@ -4,7 +4,7 @@
     v-model="state.value"
     v-bind="$attrs"
     :placeholder="placeholder || 'Enter number only...'"
-    @input="$emit('input', state.value)"
+    @change="onChange"
   >
     <template v-slot:prefix>
       <slot name="prefix"/>
@@ -13,7 +13,8 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { TValidity } from '@/components/FormSVC'
+
+const defaultHelp = 'Child says: Numbers only.'
 
 export default Vue.extend({
   name: 'MyInput',
@@ -23,26 +24,31 @@ export default Vue.extend({
   },
   data() {
     return {
-      label: 'Label provided by child',
-      extra: 'Extra provided by child',
+      label: 'Child says: label text',
+      extra: 'Child says: extra text',
       state: {
         value: this.value,
       },
+      validity: {
+        status: '',
+        help: defaultHelp
+      }
     }
   },
-  computed: {
-    validity():TValidity {
-      if (!this.value || /^[0-9]*$/.test(this.value)) {
-        return {
-          status: '',
-          help: 'Help provided by child',
-        }
-      }
-      return {
-        status: 'error',
-        help: 'Child says: Only numbers allowed!',
-      }
+  methods: {
+    onChange() {
+      this.validate()
+      this.$emit('input', this.state.value)
     },
+    validate() {
+      if (!this.state.value || /^[0-9]*$/.test(this.state.value)) {
+        this.validity.status = ''
+        this.validity.help = defaultHelp
+      } else {
+        this.validity.status = 'error'
+        this.validity.help = 'Child says: Not a number!'
+      }
+    }
   },
 })
 </script>

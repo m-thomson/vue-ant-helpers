@@ -4,7 +4,7 @@
     v-model="state.value"
     v-bind="$attrs"
     style="width: 120px"
-    @change="$emit('input', state.value)"
+    @change="onChange"
   >
     <a-select-option value="Jack">Jack</a-select-option>
     <a-select-option value="John">John</a-select-option>
@@ -16,7 +16,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Select } from 'ant-design-vue'
-import { TValidity } from '@/components/FormSVC'
+
+const defaultHelp = 'This help provided by child'
 
 export default Vue.extend({
   name: 'MySelect',
@@ -34,27 +35,29 @@ export default Vue.extend({
       state: {
         value: this.value,
       },
+      validity: {
+        status: '',
+        help: defaultHelp
+      }
     }
   },
-  computed: {
-    validity():TValidity {
-      if (this.state.value === '_Error') {
-        return {
-          status: 'error',
-          help: 'Child says: Wrong one!',
-        }
-      }
-      if (this.state.value === '_Warn') {
-        return {
-          status: 'warning',
-          help: 'Child says: Wrong one!',
-        }
-      }
-      return {
-        status: '',
-        help: 'This help provided by child',
-      }
+  methods: {
+    onChange() {
+      this.validate()
+      this.$emit('input', this.state.value)
     },
+    validate() {
+      if (this.state.value === '_Error') {
+        this.validity.status = 'error'
+        this.validity.help = 'Child says: Wrong one!'
+      } else if (this.state.value === '_Warn') {
+        this.validity.status = 'warning'
+        this.validity.help = 'Child says: Wrong one!'
+      } else {
+        this.validity.status = ''
+        this.validity.help = defaultHelp
+      }
+    }
   },
 })
 </script>

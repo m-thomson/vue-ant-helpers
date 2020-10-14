@@ -7,13 +7,13 @@
       :help="validity.help"
       :validateStatus="validity.status"
     >
-      <slot />
+      <slot/>
     </a-form-item>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { groupValidity, parentOrChildVal, TFormItemNode, TValidity } from '@/components/FormSVC'
+import { parentOrChildVal, TFormItemNode, TValidity } from '@/components/FormSVC'
 // noinspection PointlessBooleanExpressionJS
 /**
  * This is a flexible wrapper for ant form items that displays the label, help, extra text
@@ -53,38 +53,34 @@ export default Vue.extend({
   data() {
     return {
       /** Array of Child vNodes  */
-      children: [] as TFormItemNode[],
+      slottedChild: undefined as undefined|TFormItemNode,
       /** Generate correct ant-col-* class */
       stretchClass: this.stretch ? 'ant-col-' + this.stretch : undefined,
     }
   },
   mounted() {
-    this.children = this.$slots.default!.map((v) => v.componentInstance) as TFormItemNode[]
+    if (this.$slots.default?.length !== 1)
+      throw new Error(`<FormItem> must have exactly one child.`)
+    this.slottedChild = (this.$slots.default as any)[0].componentInstance as TFormItemNode
   },
   computed: {
     /** Computes the definitive label to use. */
     itemLabel():string {
-      return parentOrChildVal(this.label, () => {
-        if (this.children.length > 1)
-          throw new Error(`Attempt to use child label but there are multiple children.`)
-        return this.children.length === 1 ? this.children[0].label : ''
-      })
+      return parentOrChildVal(this.label, () => this.slottedChild?.label || '')
     },
     /** Computes the definitive "extra"  text to use. */
     itemExtra():string {
-      return parentOrChildVal(this.extra, () => {
-        if (this.children.length > 1)
-          throw new Error(`Attempt to use child extra but there are multiple children.`)
-        return this.children.length === 1 ? this.children[0].extra : ''
-      })
+      return parentOrChildVal(this.extra, () => this.slottedChild?.extra || '')
     },
     validity():TValidity {
-      const validities = groupValidity(this.children)
       return {
-        help: parentOrChildVal(this.help, () => validities.help),
-        status: parentOrChildVal(this.status, () => validities.status)
+        help: parentOrChildVal(this.help, () => this.slottedChild?.validity?.help || ''),
+        status: parentOrChildVal(this.status, () => this.slottedChild?.validity?.status|| '')
       }
     },
   },
 })
 </script>
+<style>
+
+</style>

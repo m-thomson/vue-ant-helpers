@@ -130,7 +130,7 @@ export default Vue.extend({
 </script>
 
 <!--suppress CssFloatPxLength -->
-<style>
+<style lang="scss">
 :root {
   --form-item-label-height:   39.999px; /* antd value */
   --form-item-element-height: 40px; /* antd sets this with line-height */
@@ -180,10 +180,38 @@ header {
 }
 
 /*noinspection CssUnusedSymbol*/
-.form-col {
-  padding-left:  8px !important;
-  padding-right: 8px !important;
+div.form-col {
+  padding-left:  8px;
+  padding-right: 8px;
   position:      relative;
   min-height:    1px;
 }
+
+.ant-form-item-label {
+  background-color: lightyellow;
+}
+.ant-form-explain {
+  background-color: linen;
+}
+.ant-form-extra {
+  background-color: azure;
+}
+.ant-form-item-children {
+  background-color: red;
+}
+
+div.form-col.merge-right {
+  padding-right: 0;
+  * {
+    border-radius: 4px 0 0 4px;
+  }
+}
+
+div.form-col.merge-left {
+  padding-left: 0;
+  * {
+    border-radius: 0 4px 4px 0;
+  }
+}
+
 </style>

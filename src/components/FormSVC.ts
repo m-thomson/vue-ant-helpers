@@ -22,21 +22,29 @@ export function parentOrChildVal(parentVal:string | boolean, childValFN:Function
   return ''
 }
 
-export function groupValidity(childFormItems:TFormItemNode[]):TValidity {
+/** Collates child nodes validity fields.*/
+export function groupValidity(vm:Vue, defaultHelp = ''):TValidity {
   const errors = [] as string[]
   const warnings = [] as string[]
-  Object.values(childFormItems).forEach((v) => {
+  Object.values(vm.$children).forEach((v:TFormItemNode) => {
     if (v.validity) {
       const { status, help } = v.validity
       if (status === 'error') errors.push(help)
       if (status === 'warning') warnings.push(help)
     }
   })
-  return errors.length === 0
-    ? { status: '', help: '' }
-    : {
+  if (errors.length) {
+    return {
       status: 'error',
       help: errors.join(';'),
     }
+  }
+  if (warnings.length) {
+    return {
+      status: 'warning',
+      help: warnings.join(';'),
+    }
+  }
+  return  { status: '', help: defaultHelp }
 }
 
