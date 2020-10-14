@@ -40,7 +40,7 @@ export default Vue.extend({
    */
   props: {
     /** How many columns to occupy (out of 24) */
-    stretch: { type:Number, validator: (v) => (v >= 0 && v <= 24) },
+    stretch: { type: Number, validator: (v) => (v >= 0 && v <= 24) },
     /** True = use default, False = none, String = override */
     label: [Boolean, String],
     /** True = use default, False = none, String = override */
@@ -48,12 +48,12 @@ export default Vue.extend({
     /** True = use default, False = none, String = override */
     help: [Boolean, String],
     /** True = use default, False = none, String = override */
-    status: {type:[Boolean, String],default:true}
+    status: { type: [Boolean, String], default: true },
   },
   data() {
     return {
       /** Array of Child vNodes  */
-      slottedChild: undefined as undefined|TFormItemNode,
+      slottedChild: undefined as undefined | TFormItemNode,
       /** Generate correct ant-col-* class */
       stretchClass: this.stretch ? 'ant-col-' + this.stretch : undefined,
     }
@@ -75,12 +75,48 @@ export default Vue.extend({
     validity():TValidity {
       return {
         help: parentOrChildVal(this.help, () => this.slottedChild?.validity?.help || ''),
-        status: parentOrChildVal(this.status, () => this.slottedChild?.validity?.status|| '')
+        status: parentOrChildVal(this.status, () => this.slottedChild?.validity?.status || ''),
       }
     },
   },
 })
 </script>
-<style>
+<!--suppress CssFloatPxLength -->
+<style lang="scss">
+:root {
+  --form-item-label-height:   39.999px; /* antd value */
+  --form-item-element-height: 40px; /* antd sets this with line-height */
+  --form-item-help-height:    22px; /* antd sets this with font-size:14px, line-height:1.5, margin-top:-2px, margin-bottom:-1px */
+  --form-item-total-height:   calc(var(--form-item-label-height) + var(--form-item-element-height) + var(--form-item-help-height));
+  --form-row-gutter:          12px;
+}
 
+.form-row {
+  margin-left:  -8px;
+  margin-right: -8px;
+  display:      flex;
+  flex-flow:    row wrap;
+}
+
+/*noinspection CssUnusedSymbol*/
+div.form-col {
+  padding-left:  8px;
+  padding-right: 8px;
+  position:      relative;
+  min-height:    1px;
+}
+
+div.form-col.merge-right {
+  padding-right: 0;
+  * {
+    border-radius: 4px 0 0 4px;
+  }
+}
+
+div.form-col.merge-left {
+  padding-left: 0;
+  * {
+    border-radius: 0 4px 4px 0;
+  }
+}
 </style>

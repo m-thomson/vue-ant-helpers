@@ -128,17 +128,7 @@ export default Vue.extend({
   },
 })
 </script>
-
-<!--suppress CssFloatPxLength -->
 <style lang="scss">
-:root {
-  --form-item-label-height:   39.999px; /* antd value */
-  --form-item-element-height: 40px; /* antd sets this with line-height */
-  --form-item-help-height:    22px; /* antd sets this with font-size:14px, line-height:1.5, margin-top:-2px, margin-bottom:-1px */
-  --form-item-total-height:   calc(var(--form-item-label-height) + var(--form-item-element-height) + var(--form-item-help-height));
-  --form-row-gutter:          12px;
-}
-
 hr {
   margin:  0;
   padding: 0;
@@ -170,48 +160,18 @@ header {
   border-top:            1px solid black;
   border-bottom:         1px solid black;
   padding:               4px 0;
-}
 
-.form-row {
-  margin-left:  -8px;
-  margin-right: -8px;
-  display:      flex;
-  flex-flow:    row wrap;
-}
-
-/*noinspection CssUnusedSymbol*/
-div.form-col {
-  padding-left:  8px;
-  padding-right: 8px;
-  position:      relative;
-  min-height:    1px;
-}
-
-.ant-form-item-label {
-  background-color: lightyellow;
-}
-.ant-form-explain {
-  background-color: linen;
-}
-.ant-form-extra {
-  background-color: azure;
-}
-.ant-form-item-children {
-  background-color: red;
-}
-
-div.form-col.merge-right {
-  padding-right: 0;
-  * {
-    border-radius: 4px 0 0 4px;
+  .ant-form-item-label {
+    background-color: lightyellow;
+  }
+  .ant-form-explain {
+    background-color: linen;
+  }
+  .ant-form-extra {
+    background-color: azure;
+  }
+  .ant-form-item-children {
+    background-color: red;
   }
 }
-
-div.form-col.merge-left {
-  padding-left: 0;
-  * {
-    border-radius: 0 4px 4px 0;
-  }
-}
-
 </style>
