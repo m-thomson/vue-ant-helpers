@@ -17,7 +17,7 @@
       </div>
       <div class="form-row">
         <FormItem ref="demo1" help label extra>
-          <my-input v-model="demo1Val"/>
+          <DemoInput v-model="demo1Val"/>
         </FormItem>
       </div>
     </div>
@@ -31,7 +31,7 @@
       </div>
       <div class="form-row">
         <FormItem label :help="validity.help" :status="validity.status">
-          <my-input v-model="demo2Val" placeholder="Enter text only..."/>
+          <DemoInput v-model="demo2Val" placeholder="Enter text only..."/>
         </FormItem>
       </div>
     </div>
@@ -45,12 +45,12 @@
       </div>
       <div class="form-row">
         <FormItem label='Label overridden by outer' extra='Extra overridden by outer'>
-          <my-input v-model="demo3Val" placeholder="Foo">
+          <DemoInput v-model="demo3Val" placeholder="Foo">
             <!-- slotted content -->
             <template v-slot:prefix>
               <a-icon type="question"/>
             </template>
-          </my-input>
+          </DemoInput>
         </FormItem>
       </div>
     </div>
@@ -79,7 +79,7 @@
       </div>
       <div class="form-row">
         <FormItem ref="MyGrouped" label help status extra>
-          <my-grouped
+          <DemoGroupedInput
             :inputValue.sync="demo4InputVal"
             :selectValue.sync="demo4SelectVal"
           />
@@ -92,16 +92,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import FormItem from '../FormItem.vue'
-import MyInput from './MyInput.vue'
-import MyGrouped from './MyGrouped.vue'
+import DemoInput from './DemoInput.vue'
+import DemoGroupedInput from './DemoGroupedInput.vue'
 import { TValidity } from '@/components/FormSVC'
 
 export default Vue.extend({
   name: 'App',
   components: {
     FormItem,
-    MyInput,
-    MyGrouped,
+    DemoInput,
+    DemoGroupedInput,
   },
   data() {
     return {

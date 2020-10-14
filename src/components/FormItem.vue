@@ -15,6 +15,7 @@
 import Vue from 'vue'
 import { parentOrChildVal, TFormItemNode, TValidity } from '@/components/FormSVC'
 // noinspection PointlessBooleanExpressionJS
+
 /**
  * This is a flexible wrapper for ant form items that displays the label, help, extra text
  * and intermediates the validation.
@@ -88,7 +89,9 @@ export default Vue.extend({
   --form-item-element-height: 40px; /* antd sets this with line-height */
   --form-item-help-height:    22px; /* antd sets this with font-size:14px, line-height:1.5, margin-top:-2px, margin-bottom:-1px */
   --form-item-total-height:   calc(var(--form-item-label-height) + var(--form-item-element-height) + var(--form-item-help-height));
-  --form-row-gutter:          12px;
+  --form-gutter:              12px;
+  --form-gutter-half:         calc( var(--form-row-gutter) / 2 );
+  --form-gutter-half-neg:     calc( var(--form-row-gutter) / -2 );
 }
 
 .form-row {

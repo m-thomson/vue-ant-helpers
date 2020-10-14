@@ -1,29 +1,7 @@
 import Vue from "vue";
-import App from "./components/demo/App.vue";
-
-import "ant-design-vue/dist/antd.css";
-import {
-  Popover,
-  Button,
-  Form,
-  Col,
-  Row,
-  Input,
-  Icon,
-  Select
-} from "ant-design-vue";
-
-Vue.use(Popover);
-Vue.use(Button);
-Vue.use(Form);
-Vue.use(Col);
-Vue.use(Row);
-Vue.use(Input);
-Vue.use(Icon);
-Vue.use(Select);
-Vue.use(Select.Option);
-Vue.config.productionTip = false;
+import "./components/FormSVC"
+import DemoApp from "./components/demo/DemoApp.vue";
 
 new Vue({
-  render: (h) => h(App)
+  render: (h) => h(DemoApp)
 }).$mount("#app");

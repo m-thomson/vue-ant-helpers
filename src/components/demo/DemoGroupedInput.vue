@@ -16,8 +16,8 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import MyInput from './MyInput.vue'
-import MySelect from './MySelect.vue'
+import MyInput from './DemoInput.vue'
+import MySelect from './DemoSelect.vue'
 import FormItem from '../FormItem.vue'
 import { groupValidity } from '@/components/FormSVC'
 
