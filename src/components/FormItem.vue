@@ -13,9 +13,18 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { parentOrChildVal, TFormItemNode, TValidity } from '@/components/FormSVC'
+import { TFormItemNode, TValidity } from '@/components/FormSVC'
 // noinspection PointlessBooleanExpressionJS
 
+/** Returns the parent or child value */
+function parentOrChildVal(parentVal:string | boolean, childValFN:Function):string {
+  if (typeof parentVal === 'string') return parentVal
+  if (parentVal === true) {
+    const descendantVal = childValFN()
+    if (descendantVal) return descendantVal
+  }
+  return ''
+}
 /**
  * This is a flexible wrapper for ant form items that displays the label, help, extra text
  * and intermediates the validation.

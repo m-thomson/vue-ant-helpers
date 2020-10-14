@@ -43,10 +43,6 @@ export default Vue.extend({
   },
   methods: {
     onChange() {
-      this.validate()
-      this.$emit('input', this.state.value)
-    },
-    validate() {
       if (this.state.value === '_Error') {
         this.validity.status = 'error'
         this.validity.help = 'Child says: Wrong one!'
@@ -57,7 +53,9 @@ export default Vue.extend({
         this.validity.status = ''
         this.validity.help = defaultHelp
       }
-    }
+      this.$emit('validity', this.validity)
+      this.$emit('input', this.state.value)
+    },
   },
 })
 </script>

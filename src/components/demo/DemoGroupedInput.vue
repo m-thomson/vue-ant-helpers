@@ -21,7 +21,7 @@ import MySelect from './DemoSelect.vue'
 import FormItem from '../FormItem.vue'
 import { groupValidity } from '@/components/FormSVC'
 
-const defaultHelp = "Foo."
+const defaultHelp = "Group help"
 
 /**
  * This is an example of a compound form item.
@@ -49,12 +49,9 @@ export default Vue.extend({
   },
   methods:{
     onChange(key:string, value:any) {
-      this.validate()
-      this.$emit(`update:$key`, value)
-      this.$emit('validity', this.validity)
-    },
-    validate() {
       this.validity = groupValidity(this, defaultHelp)
+      this.$emit('validity', this.validity)
+      this.$emit(`update:$key`, value)
     },
   }
 })

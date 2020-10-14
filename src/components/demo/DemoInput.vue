@@ -37,10 +37,6 @@ export default Vue.extend({
   },
   methods: {
     onChange() {
-      this.validate()
-      this.$emit('input', this.state.value)
-    },
-    validate() {
       if (!this.state.value || /^[0-9]*$/.test(this.state.value)) {
         this.validity.status = ''
         this.validity.help = defaultHelp
@@ -48,7 +44,9 @@ export default Vue.extend({
         this.validity.status = 'error'
         this.validity.help = 'Child says: Not a number!'
       }
-    }
+      this.$emit('validity', this.validity)
+      this.$emit('input', this.state.value)
+    },
   },
 })
 </script>

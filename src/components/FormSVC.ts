@@ -47,7 +47,11 @@ export function parentOrChildVal(parentVal:string | boolean, childValFN:Function
   return ''
 }
 
-/** Collates child nodes validity fields.*/
+/**
+ * Iterates over immediate <FormItem> children, gathers their
+ * validity objects and then reduces those down to a single
+ * validity object.
+ */
 export function groupValidity(vm:TVue, defaultHelp = ''):TValidity {
   const errors = [] as string[]
   const warnings = [] as string[]
