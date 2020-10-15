@@ -117,19 +117,31 @@ div.form-col {
   padding-right: 8px;
   position:      relative;
   min-height:    1px;
-}
-
-div.form-col.merge-right {
-  padding-right: 0;
-  * {
-    border-radius: 4px 0 0 4px;
+  &.merge-left {
+    padding-left: 0;
+    margin-left:  -1px;
+    * { border-radius: 0 4px 4px 0; }
+  }
+  &.merge-right {
+    padding-right: 0;
+    * { border-radius: 4px 0 0 4px; }
+  }
+  &.merge-left.merge-right {
+    * { border-radius: 0;}
+  }
+  /* Hovered element should raise it's z-index so shared borders highlight correctly */
+  &:hover {
+    z-index:1;
   }
 }
 
-div.form-col.merge-left {
-  padding-left: 0;
-  * {
-    border-radius: 0 4px 4px 0;
-  }
+/* Focused elements should have highest z-index */
+input:focus, .ant-select-focused {
+  z-index:2;
 }
+span.ant-form-item-children > div {
+
+}
+
+
 </style>

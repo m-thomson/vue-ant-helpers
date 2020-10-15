@@ -3,7 +3,7 @@
     vc="<MySelect>"
     v-model="formItem.value"
     v-bind="$attrs"
-    style="width: 120px"
+    style="width: 100%"
     @change="onChange"
   >
     <a-select-option value="Jack">Jack</a-select-option>

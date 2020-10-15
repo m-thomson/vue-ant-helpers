@@ -89,6 +89,24 @@
         </ShowFormItem>
       </div>
     </div>
+    <!-----------------------[5]------------------------->
+    <div class="demo-row">
+      <div class="describe">
+        <h2>5. Three inputs</h2>
+        <p>
+          To do.
+        </p>
+      </div>
+      <div class="form-row">
+        <ShowFormItem ref="MyGrouped" label help status extra>
+          <DemoGroupedInput2
+            :inputLeftValue.sync="demo5InputLeftVal"
+            :inputRightValue.sync="demo5RightLeftVal"
+            :selectValue.sync="demo5SelectVal"
+          />
+        </ShowFormItem>
+      </div>
+    </div>
     <!------------------------------------------------------>
   </div>
 </template>
@@ -97,6 +115,7 @@ import Vue from 'vue'
 import ShowFormItem from '../ShowFormItem.vue'
 import DemoInput from './DemoInput.vue'
 import DemoGroupedInput1 from './DemoGroupedInput1.vue'
+import DemoGroupedInput2 from './DemoGroupedInput2.vue'
 
 export default Vue.extend({
   name: 'DemoApp',
@@ -104,6 +123,7 @@ export default Vue.extend({
     ShowFormItem,
     DemoInput,
     DemoGroupedInput1,
+    DemoGroupedInput2,
   },
   data() {
     return {
@@ -112,6 +132,9 @@ export default Vue.extend({
       demo3Val: undefined as undefined | string,
       demo4InputVal: '',
       demo4SelectVal: 'Jen',
+      demo5InputLeftVal: '',
+      demo5RightLeftVal: '',
+      demo5SelectVal: 'John',
     }
   },
   computed: {
