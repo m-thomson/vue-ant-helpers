@@ -1,7 +1,7 @@
 <template>
   <a-input
     vc="<MyInput>"
-    v-model="state.value"
+    v-model="formItem.value"
     v-bind="$attrs"
     :placeholder="placeholder || 'Enter number only...'"
     @change="onChange"
@@ -13,8 +13,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-
-const defaultHelp = 'Child says: Numbers only.'
+import { FormItem } from '@/components/FormSVC'
 
 export default Vue.extend({
   name: 'MyInput',
@@ -24,28 +23,25 @@ export default Vue.extend({
   },
   data() {
     return {
-      label: 'Child says: label text',
-      extra: 'Child says: extra text',
-      state: {
+      formItem: new FormItem(this, {
         value: this.value,
-      },
-      validity: {
-        status: '',
-        help: defaultHelp
-      }
+        label: 'Child says: label text',
+        extra: 'Child says: extra text',
+        help: 'Child says: Numbers only.',
+      }),
     }
   },
   methods: {
     onChange() {
-      if (!this.state.value || /^[0-9]*$/.test(this.state.value)) {
-        this.validity.status = ''
-        this.validity.help = defaultHelp
+      if (!this.formItem.value || /^[0-9]*$/.test(this.formItem.value)) {
+        this.formItem.status = ''
+        this.formItem.help = ''
       } else {
-        this.validity.status = 'error'
-        this.validity.help = 'Child says: Not a number!'
+        this.formItem.status = 'error'
+        this.formItem.help = 'Child says: Not a number!'
       }
-      this.$emit('validity', this.validity)
-      this.$emit('input', this.state.value)
+      // this.$emit('validity', this.validity)
+      this.$emit('input', this.formItem.value)
     },
   },
 })

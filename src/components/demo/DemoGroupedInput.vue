@@ -2,14 +2,14 @@
   <div>
     <ShowFormItem :stretch="12" help error status class="merge-right">
       <MyInput
-        v-model="state.inputValue"
-        @input="onChange('inputValue', state.inputValue)"
+        v-model="formItem.value.input"
+        @input="onChange('inputValue', formItem.value.input)"
       />
     </ShowFormItem>
     <ShowFormItem :stretch="12" help error status class="merge-left">
       <MySelect
-        v-model="state.selectValue"
-        @input="onChange('selectValue', state.selectValue)"
+        v-model="formItem.value.select"
+        @input="onChange('selectValue', formItem.value.select)"
       />
     </ShowFormItem>
   </div>
@@ -19,9 +19,7 @@ import Vue from 'vue'
 import MyInput from './DemoInput.vue'
 import MySelect from './DemoSelect.vue'
 import ShowFormItem from '../ShowFormItem.vue'
-import { groupValidity } from '@/components/FormSVC'
-
-const defaultHelp = "Group help"
+import { FormItem } from '@/components/FormSVC'
 
 /**
  * This is an example of a compound form item.
@@ -35,22 +33,20 @@ export default Vue.extend({
   },
   data() {
     return {
-      label: 'Grouped component label',
-      extra: 'Grouped component extra',
-      state: {
-        inputValue: this.inputValue,
-        selectValue: this.selectValue,
-      },
-      validity: {
-        status: '',
-        help: defaultHelp
-      }
+      formItem: new FormItem(this, {
+        value: {
+          input: this.inputValue,
+          select: this.selectValue,
+        },
+        label: 'Child says: label text',
+        extra: 'Child says: extra text',
+        help: 'Group help',
+      }),
     }
   },
   methods:{
     onChange(key:string, value:any) {
-      this.validity = groupValidity(this, defaultHelp)
-      this.$emit('validity', this.validity)
+      this.formItem.validateChildItems()
       this.$emit(`update:$key`, value)
     },
   }

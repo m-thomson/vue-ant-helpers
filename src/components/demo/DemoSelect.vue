@@ -1,7 +1,7 @@
 <template>
   <a-select
     vc="<MySelect>"
-    v-model="state.value"
+    v-model="formItem.value"
     v-bind="$attrs"
     style="width: 120px"
     @change="onChange"
@@ -16,8 +16,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Select } from 'ant-design-vue'
-
-const defaultHelp = 'This help provided by child'
+import { FormItem } from '@/components/FormSVC'
 
 export default Vue.extend({
   name: 'MySelect',
@@ -30,31 +29,28 @@ export default Vue.extend({
   },
   data() {
     return {
-      label: 'Label provided by child',
-      extra: 'Extra provided by child',
-      state: {
+      formItem: new FormItem(this, {
         value: this.value,
-      },
-      validity: {
-        status: '',
-        help: defaultHelp
-      }
+        label: 'Child says: label text',
+        extra: 'Child says: extra text',
+        help: 'This help provided by child',
+      }),
     }
   },
   methods: {
     onChange() {
-      if (this.state.value === '_Error') {
-        this.validity.status = 'error'
-        this.validity.help = 'Child says: Wrong one!'
-      } else if (this.state.value === '_Warn') {
-        this.validity.status = 'warning'
-        this.validity.help = 'Child says: Wrong one!'
+      if (this.formItem.value === '_Error') {
+        this.formItem.status = 'error'
+        this.formItem.help = 'Child says: Wrong one!'
+      } else if (this.formItem.value === '_Warn') {
+        this.formItem.status = 'warning'
+        this.formItem.help = 'Child says: Wrong one!'
       } else {
-        this.validity.status = ''
-        this.validity.help = defaultHelp
+        this.formItem.status = ''
+        this.formItem.help = ''
       }
-      this.$emit('validity', this.validity)
-      this.$emit('input', this.state.value)
+      // this.$emit('validity', this.validity)
+      this.$emit('input', this.formItem.value)
     },
   },
 })

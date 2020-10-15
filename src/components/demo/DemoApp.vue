@@ -30,7 +30,7 @@
         </p>
       </div>
       <div class="form-row">
-        <ShowFormItem label :help="validity.help" :status="validity.status">
+        <ShowFormItem label :help="demo2Validity.help" :status="demo2Validity.status">
           <DemoInput v-model="demo2Val" placeholder="Enter text only..."/>
         </ShowFormItem>
       </div>
@@ -94,7 +94,6 @@ import Vue from 'vue'
 import ShowFormItem from '../ShowFormItem.vue'
 import DemoInput from './DemoInput.vue'
 import DemoGroupedInput from './DemoGroupedInput.vue'
-import { TValidity } from '@/components/FormSVC'
 
 export default Vue.extend({
   name: 'App',
@@ -113,7 +112,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    validity():TValidity {
+    demo2Validity() {
       if (!this.demo2Val || /^[A-Za-z]*$/.test(this.demo2Val)) {
         return {
           status: 'success',

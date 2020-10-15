@@ -4,8 +4,8 @@
     <a-form-item
       :label="itemLabel"
       :extra="itemExtra"
-      :help="validity.help"
-      :validateStatus="validity.status"
+      :help="itemHelp"
+      :validateStatus="itemStatus"
     >
       <slot/>
     </a-form-item>
@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { TFormItemNode, TValidity } from '@/components/FormSVC'
+import { TFormItemNode } from '@/components/FormSVC'
 // noinspection PointlessBooleanExpressionJS
 
 /** Returns the parent or child value */
@@ -25,6 +25,7 @@ function parentOrChildVal(parentVal:string | boolean, childValFN:Function):strin
   }
   return ''
 }
+
 /**
  * This is a flexible wrapper for ant form items that displays the label, help, extra text
  * and intermediates the validation.
@@ -43,7 +44,7 @@ function parentOrChildVal(parentVal:string | boolean, childValFN:Function):strin
  * into the child component.
  */
 export default Vue.extend({
-  name: 'FormItem',
+  name: 'ShowFormItem',
   /**
    * NB: Boolean must come first where [Boolean, String] are the available prop types.
    * This is so that the shorthand <FormItem label> can be used instead of <FormItem :label="true">
@@ -76,17 +77,17 @@ export default Vue.extend({
   computed: {
     /** Computes the definitive label to use. */
     itemLabel():string {
-      return parentOrChildVal(this.label, () => this.slottedChild?.label || '')
+      return parentOrChildVal(this.label, () => this.slottedChild?.formItem?.label || '')
     },
     /** Computes the definitive "extra"  text to use. */
     itemExtra():string {
-      return parentOrChildVal(this.extra, () => this.slottedChild?.extra || '')
+      return parentOrChildVal(this.extra, () => this.slottedChild?.formItem?.extra || '')
     },
-    validity():TValidity {
-      return {
-        help: parentOrChildVal(this.help, () => this.slottedChild?.validity?.help || ''),
-        status: parentOrChildVal(this.status, () => this.slottedChild?.validity?.status || ''),
-      }
+    itemHelp():string {
+      return parentOrChildVal(this.help, () => this.slottedChild?.formItem?.help || '')
+    },
+    itemStatus():string {
+      return parentOrChildVal(this.status, () => this.slottedChild?.formItem?.status || '')
     },
   },
 })
