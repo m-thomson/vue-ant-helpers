@@ -24,7 +24,6 @@
 import Vue from 'vue'
 import MyInput from './DemoInput.vue'
 import MySelect from './DemoSelect.vue'
-import ShowFormItem from '../ShowFormItem.vue'
 import { FormItem } from '@/components/FormSVC'
 
 /**
@@ -32,7 +31,7 @@ import { FormItem } from '@/components/FormSVC'
  */
 export default Vue.extend({
   name: 'DemoGroupedInput2',
-  components: { MyInput, MySelect, ShowFormItem },
+  components: { MyInput, MySelect },
   props: {
     inputLeftValue: String,
     inputRightValue: String,

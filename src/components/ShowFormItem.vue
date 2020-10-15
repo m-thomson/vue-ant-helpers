@@ -13,8 +13,13 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { TFormItemNode } from '@/components/FormSVC'
+import { FormItem } from '@/components/FormSVC'
+import { Vue as TVue } from 'vue/types/vue'
 // noinspection PointlessBooleanExpressionJS
+
+type TFormItemNode = TVue & {
+  formItem?:FormItem
+}
 
 /** Returns the parent or child value */
 function parentOrChildVal(parentVal:string | boolean, childValFN:Function):string {

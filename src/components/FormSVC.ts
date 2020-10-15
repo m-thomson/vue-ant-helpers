@@ -1,37 +1,4 @@
-import Vue from 'vue'
 import { Vue as TVue } from 'vue/types/vue'
-
-import {
-  Button,
-  Col,
-  Form,
-  Icon,
-  Input,
-  Popover,
-  Row,
-  Select,
-} from "ant-design-vue";
-
-import 'ant-design-vue/lib/button/style'
-import 'ant-design-vue/lib/col/style'
-import 'ant-design-vue/lib/form/style'
-import 'ant-design-vue/lib/icon/style'
-import 'ant-design-vue/lib/input/style'
-import 'ant-design-vue/lib/popover/style'
-import 'ant-design-vue/lib/row/style'
-import 'ant-design-vue/lib/select/style'
-
-Vue.use(Popover);
-Vue.use(Button);
-Vue.use(Form);
-Vue.use(Col);
-Vue.use(Row);
-Vue.use(Input);
-Vue.use(Icon);
-Vue.use(Select);
-Vue.use(Select.Option);
-
-Vue.config.productionTip = false;
 
 type TFormItemOpts = {
   label?:string
@@ -39,9 +6,6 @@ type TFormItemOpts = {
   status?:string
   help?:string
   value:any
-}
-export type TFormItemNode = TVue & {
-  formItem?:FormItem
 }
 
 export class FormItem<T extends TFormItemOpts = any> {

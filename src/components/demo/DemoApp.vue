@@ -112,7 +112,6 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import ShowFormItem from '../ShowFormItem.vue'
 import DemoInput from './DemoInput.vue'
 import DemoGroupedInput1 from './DemoGroupedInput1.vue'
 import DemoGroupedInput2 from './DemoGroupedInput2.vue'
@@ -120,7 +119,6 @@ import DemoGroupedInput2 from './DemoGroupedInput2.vue'
 export default Vue.extend({
   name: 'DemoApp',
   components: {
-    ShowFormItem,
     DemoInput,
     DemoGroupedInput1,
     DemoGroupedInput2,
