@@ -16,7 +16,7 @@ import Vue from 'vue'
 import { FormItem } from '@/components/FormSVC'
 
 export default Vue.extend({
-  name: 'MyInput',
+  name: 'DemoInput',
   props: {
     value: String, // v-model
     placeholder: String,

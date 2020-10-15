@@ -25,7 +25,7 @@ import { FormItem } from '@/components/FormSVC'
  * This is an example of a compound form item.
  */
 export default Vue.extend({
-  name: 'MyGrouped',
+  name: 'DemoGroupedInput1',
   components: { MyInput, MySelect, ShowFormItem },
   props: {
     inputValue: String,

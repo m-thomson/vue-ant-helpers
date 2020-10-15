@@ -19,7 +19,7 @@ import { Select } from 'ant-design-vue'
 import { FormItem } from '@/components/FormSVC'
 
 export default Vue.extend({
-  name: 'MySelect',
+  name: 'DemoSelect',
   components: {
     Select,
     'a-select-option': Select.Option,

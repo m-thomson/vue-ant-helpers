@@ -14,6 +14,9 @@
         <p>
           Here we are using the child's defaults for label, help, extra and status. We are also using the child's validation.
         </p>
+        <p>
+          {{ demo1Val }}
+        </p>
       </div>
       <div class="form-row">
         <ShowFormItem ref="demo1" help label extra>
@@ -79,7 +82,7 @@
       </div>
       <div class="form-row">
         <ShowFormItem ref="MyGrouped" label help status extra>
-          <DemoGroupedInput
+          <DemoGroupedInput1
             :inputValue.sync="demo4InputVal"
             :selectValue.sync="demo4SelectVal"
           />
@@ -93,14 +96,14 @@
 import Vue from 'vue'
 import ShowFormItem from '../ShowFormItem.vue'
 import DemoInput from './DemoInput.vue'
-import DemoGroupedInput from './DemoGroupedInput.vue'
+import DemoGroupedInput1 from './DemoGroupedInput1.vue'
 
 export default Vue.extend({
-  name: 'App',
+  name: 'DemoApp',
   components: {
     ShowFormItem,
     DemoInput,
-    DemoGroupedInput,
+    DemoGroupedInput1,
   },
   data() {
     return {
