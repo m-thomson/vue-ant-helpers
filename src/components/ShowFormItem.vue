@@ -139,9 +139,31 @@ div.form-col {
 input:focus, .ant-select-focused {
   z-index:2;
 }
-span.ant-form-item-children > div {
 
+/* Ant forces red color on all help text descendants of .has-error
+   but, we don't want that for nested/grouped components - we only
+   want the immediate descendants help text to do so.*/
+.has-error {
+  /* Disable Ant default behaviour */
+  .ant-form-explain,
+  .ant-form-split {
+    color: inherit;
+  }
+  .ant-input,
+  .ant-input:hover,
+  .ant-input:focus, {
+    border-color:     #d9d9d9;
+  }
+  .ant-input:not([disabled]):hover {
+    border-color:     #d9d9d9;
+  }
+  .ant-input:focus { // restore default "focus ring"
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  }
+  /* Change color of only immediate descendants */
+  > .ant-form-explain {
+    /* TODO: This is ant default error colour, we need to variable-ize it */
+    color: #f5222d;
+  }
 }
-
-
 </style>

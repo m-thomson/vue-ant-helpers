@@ -1,17 +1,25 @@
 import Vue from 'vue'
 import { Vue as TVue } from 'vue/types/vue'
 
-import "ant-design-vue/dist/antd.css";
 import {
-  Popover,
   Button,
-  Form,
   Col,
-  Row,
-  Input,
+  Form,
   Icon,
-  Select
+  Input,
+  Popover,
+  Row,
+  Select,
 } from "ant-design-vue";
+
+import 'ant-design-vue/lib/button/style'
+import 'ant-design-vue/lib/col/style'
+import 'ant-design-vue/lib/form/style'
+import 'ant-design-vue/lib/icon/style'
+import 'ant-design-vue/lib/input/style'
+import 'ant-design-vue/lib/popover/style'
+import 'ant-design-vue/lib/row/style'
+import 'ant-design-vue/lib/select/style'
 
 Vue.use(Popover);
 Vue.use(Button);
