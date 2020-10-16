@@ -18,6 +18,7 @@
 import Vue from 'vue'
 import MyInput from './DemoInput.vue'
 import MySelect from './DemoSelect.vue'
+import { FormItem } from '@/components/FormSVC'
 
 /**
  * This is an example of a compound form item.
@@ -31,7 +32,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      formItem: new this.$FormItem(this, {
+      formItem: new FormItem(this, {
         value: {
           inputLeft: this.inputValue,
           select: this.selectValue,

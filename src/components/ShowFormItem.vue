@@ -14,10 +14,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { FormItem } from '@/components/FormSVC'
-import { Vue as TVue } from 'vue/types/vue'
 // noinspection PointlessBooleanExpressionJS
 
-type TFormItemNode = TVue & {
+type TFormItemNode = Vue & {
   formItem?:FormItem
 }
 

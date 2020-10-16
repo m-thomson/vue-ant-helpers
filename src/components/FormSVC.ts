@@ -1,4 +1,4 @@
-import { Vue as TVue } from 'vue/types/vue'
+import Vue from 'vue'
 
 type TFormItemOpts = {
   label?:string
@@ -9,7 +9,7 @@ type TFormItemOpts = {
 }
 
 export class FormItem<T extends TFormItemOpts = any> {
-  protected _vm:TVue
+  protected _vm:Vue
   protected _values: {
     status: string
     help: string
@@ -18,7 +18,7 @@ export class FormItem<T extends TFormItemOpts = any> {
   readonly label:string
   readonly extra:string
   readonly defaultHelp:string
-  constructor(vm:TVue, opts:T) {
+  constructor(vm:Vue, opts:T) {
     this._vm = vm
     this.label = opts.label || ''
     this.extra = opts.extra || ''
