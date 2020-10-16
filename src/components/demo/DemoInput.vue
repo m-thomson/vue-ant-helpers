@@ -25,9 +25,9 @@ export default Vue.extend({
     return {
       formItem: new FormItem(this, {
         value: this.value,
-        label: 'Child says: label text',
-        extra: 'Child says: extra text',
-        help: 'Child says: Numbers only.',
+        label: 'Child: label text',
+        extra: 'Child: extra text',
+        help: 'Child: Numbers only.',
       }),
     }
   },
@@ -38,7 +38,7 @@ export default Vue.extend({
         this.formItem.help = ''
       } else {
         this.formItem.status = 'error'
-        this.formItem.help = 'Child says: Not a number!'
+        this.formItem.help = 'Child: Not a number!'
       }
       // this.$emit('validity', this.validity)
       this.$emit('input', this.formItem.value)

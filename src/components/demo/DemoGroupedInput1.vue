@@ -37,8 +37,8 @@ export default Vue.extend({
           inputLeft: this.inputValue,
           select: this.selectValue,
         },
-        label: 'Child says: label text',
-        extra: 'Child says: extra text',
+        label: 'Child: label text',
+        extra: 'Child: extra text',
         help: 'Group help',
       }),
     }

@@ -140,34 +140,36 @@ div.form-col {
 }
 
 /* Focused elements should have highest z-index */
-input:focus, .ant-select-focused {
+input:focus,
+.ant-select-focused {
   z-index:2;
 }
 
-/* Ant forces red color on all help text descendants of .has-error
-   but, we don't want that for nested/grouped components - we only
-   want the immediate descendants help text to do so.*/
-.has-error {
-  /* Disable Ant default behaviour */
+/* Ant forces error/warning colors on *all* applicable descendants of .has-error
+   and .has-warning. With this fix, only immediate descendants will be affected. */
+.ant-form-item-control:not(.has-error):not(.has-warning) {
+
+  // Help text
   .ant-form-explain,
   .ant-form-split {
+    color:inherit;
+  }
+
+  // Icons inside form element.
+  .ant-calendar-picker-icon::after,
+  .ant-time-picker-icon::after,
+  .ant-picker-icon::after,
+  .ant-select-arrow,
+  .ant-cascader-picker-arrow {
     color: inherit;
   }
+
   .ant-input,
   .ant-input:hover,
-  .ant-input:focus, {
-    border-color:     #d9d9d9;
-  }
-  .ant-input:not([disabled]):hover {
-    border-color:     #d9d9d9;
-  }
-  .ant-input:focus { // restore default "focus ring"
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
-  }
-  /* Change color of only immediate descendants */
-  > .ant-form-explain {
-    /* TODO: This is ant default error colour, we need to variable-ize it */
-    color: #f5222d;
+  .ant-input:focus,
+  .ant-select-selection {
+    //border-color: #d9d9d9;
   }
 }
+
 </style>

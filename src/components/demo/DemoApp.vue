@@ -7,6 +7,29 @@
         <a href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyInput.vue">Source.</a>
       </p>
     </header>
+    <!-----------------------[0]------------------------->
+    <div class="demo-row">
+      <div class="describe">
+        <h2>1. With defaults</h2>
+        <p>
+          Here we are using the child's defaults for label, help, extra and status. We are also using the child's validation.
+        </p>
+        <p>
+          {{demo1Val}}
+        </p>
+      </div>
+      <div class="form-row">
+        <ShowFormItem label="foo">
+          <a-input-group compact>
+            <a-input style="width: 20%" default-value="0571"/>
+            <a-input style="width: 30%" default-value="26888888"/>
+            <ShowFormItem label>
+            <DemoSelect label help status/>
+            </ShowFormItem>
+          </a-input-group>
+        </ShowFormItem>
+      </div>
+    </div>
     <!-----------------------[1]------------------------->
     <div class="demo-row">
       <div class="describe">
@@ -113,6 +136,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import DemoInput from './DemoInput.vue'
+import DemoSelect from './DemoSelect.vue'
 import DemoGroupedInput1 from './DemoGroupedInput1.vue'
 import DemoGroupedInput2 from './DemoGroupedInput2.vue'
 
@@ -120,6 +144,7 @@ export default Vue.extend({
   name: 'DemoApp',
   components: {
     DemoInput,
+    DemoSelect,
     DemoGroupedInput1,
     DemoGroupedInput2,
   },

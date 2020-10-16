@@ -31,8 +31,8 @@ export default Vue.extend({
     return {
       formItem: new FormItem(this, {
         value: this.value,
-        label: 'Child says: label text',
-        extra: 'Child says: extra text',
+        label: 'Child: label text',
+        extra: 'Child: extra text',
         help: 'This help provided by child',
       }),
     }
@@ -41,10 +41,10 @@ export default Vue.extend({
     onChange() {
       if (this.formItem.value === '_Error') {
         this.formItem.status = 'error'
-        this.formItem.help = 'Child says: Wrong one!'
+        this.formItem.help = 'Child: Wrong one!'
       } else if (this.formItem.value === '_Warn') {
         this.formItem.status = 'warning'
-        this.formItem.help = 'Child says: Wrong one!'
+        this.formItem.help = 'Child: Wrong one!'
       } else {
         this.formItem.status = ''
         this.formItem.help = ''
