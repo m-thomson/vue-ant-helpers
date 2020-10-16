@@ -52,10 +52,12 @@ export class FormItem<T extends TFormItemOpts = any> {
     if (errors.length) {
       this.status = 'error'
       this.help = errors.join(';')
-    }
-    else if (warnings.length) {
+    } else if (warnings.length) {
       this.status = 'warning'
       this.help = warnings.join(';')
+    } else {
+      this.status = ''
+      this.help = ''
     }
   }
 }

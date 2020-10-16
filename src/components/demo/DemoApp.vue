@@ -98,7 +98,7 @@
         </p>
       </div>
       <div class="form-row">
-        <ShowFormItem ref="MyGrouped" label help status extra>
+        <ShowFormItem label help status extra>
           <DemoGroupedInput2
             :inputLeftValue.sync="demo5InputLeftVal"
             :inputRightValue.sync="demo5RightLeftVal"
