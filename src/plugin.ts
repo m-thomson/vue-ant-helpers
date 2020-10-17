@@ -8,6 +8,7 @@ import {
   Form,
   Icon,
   Input,
+  Modal,
   Popover,
   Row,
   Select,
@@ -19,6 +20,7 @@ import 'ant-design-vue/lib/col/style'
 import 'ant-design-vue/lib/form/style'
 import 'ant-design-vue/lib/icon/style'
 import 'ant-design-vue/lib/input/style'
+import 'ant-design-vue/lib/modal/style'
 import 'ant-design-vue/lib/popover/style'
 import 'ant-design-vue/lib/row/style'
 import 'ant-design-vue/lib/select/style'
@@ -34,6 +36,7 @@ export default {
     Vue.use(Row);
     Vue.use(Input);
     Vue.use(Icon);
+    Vue.use(Modal);
     Vue.use(Select);
     Vue.use(Select.Option);
     Vue.use(Tooltip);

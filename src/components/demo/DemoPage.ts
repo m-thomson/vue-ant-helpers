@@ -4,11 +4,47 @@ import DemoInput from './DemoInput.vue'
 import DemoSelect from './DemoSelect.vue'
 import DemoGroupedInput1 from './DemoGroupedInput1.vue'
 import DemoGroupedInput2 from './DemoGroupedInput2.vue'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/github.css'
+
+// @ts-ignore
+window.hljs = hljs
+Vue.use(hljs.vuePlugin);
 
 Vue.component('DemoInput', DemoInput)
 Vue.component('DemoSelect', DemoSelect)
 Vue.component('DemoGroupedInput1', DemoGroupedInput1)
 Vue.component('DemoGroupedInput2', DemoGroupedInput2)
+
+Vue.component('SourceModal', defineComponent({
+  template: `
+    <span>
+      <a @click="modal=true">Source</a>
+      <a-modal :visible="modal" width="90%" @ok="modal=false" @cancel="modal=false">
+        <highlightjs language='html' :code="template | normalizeIndents"/>
+      </a-modal>
+    </span>
+  `,
+  props: {
+    template:String,
+  },
+  data() {
+    return { modal: false }
+  },
+  filters: {
+    normalizeIndents(text:string) {
+      let lines = text.split('\n')
+      let indents = [] as number[]
+      lines.forEach((v:string) => { if (v.trim().length)
+        indents.push(v.length - v.trimLeft().length)
+      })
+      let minIndent = Math.min(...indents)
+      lines.forEach((v:string, i:number) => lines[i] = v.substring(minIndent))
+      return lines.join('\n')
+    },
+  }
+}))
+
 
 export const demos = {
   //////////////////////////////////////////////////
@@ -22,15 +58,16 @@ export const demos = {
             Here we are using the child's defaults for label, help, extra 
             and status. We are also using the child's validation.
             <br/>{{value}}
+            <SourceModal :template="$options.template"/>
           </p>
         </div>
         <div class="form-row">
-          <ShowFormItem ref="demoA1" help label extra>
+          <ShowFormItem help label extra>
             <DemoInput v-model="value"/>
           </ShowFormItem>
         </div>
       </div>`,
-    data() {
+    data(this:Vue) {
       return { value: '' }
     },
   })),
@@ -44,6 +81,7 @@ export const demos = {
           <p>
             This example uses validation provided by the parent component. 
             In this example, instead of numbers, only letters are allowed.
+            <SourceModal :template="$options.template"/>
           </p>
         </div>
         <div class="form-row">
@@ -77,6 +115,7 @@ export const demos = {
           <p>
             Passing slotted content to child component work as
             expected. This example also shows override of label and extra by parent.
+            <SourceModal :template="$options.template"/>
           </p>
         </div>
         <div class="form-row">
@@ -103,6 +142,7 @@ export const demos = {
           <h2 id="A4">A4. Using tooltip <a href="#A4">#</a></h2>
           <p>
             Example using tooltip.
+            <SourceModal :template="$options.template"/>
           </p>
         </div>
         <div class="form-row">
@@ -134,6 +174,7 @@ export const demos = {
             Select value "{{selectVal}}"
             <br/>
             Error count: {{}}
+            <SourceModal :template="$options.template"/>
           </p>
         </div>
         <div class="form-row">
@@ -158,6 +199,7 @@ export const demos = {
           <h2 id="B2">B2. Three inputs <a href="#B2">#</a></h2>
           <p>
             To do.
+            <SourceModal :template="$options.template"/>
           </p>
         </div>
         <div class="form-row">

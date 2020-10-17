@@ -12,6 +12,7 @@
     "@vue/composition-api": "^1.0.0-beta.16",
     "ant-design-vue": "1.6.5",
     "core-js": "^3.6.5",
+    "highlight.js": "^10.2.1",
     "lodash": "^4.17.20",
     "vue": "^2.6.11"
   },
