@@ -7,15 +7,15 @@
         <a href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyInput.vue">Source.</a>
       </p>
     </header>
-    <!-----------------------[0]------------------------->
+    <!-----------------------[ A0 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>1. With defaults</h2>
+        <h2>A0. With defaults</h2>
         <p>
           Here we are using the child's defaults for label, help, extra and status. We are also using the child's validation.
         </p>
         <p>
-          {{demo1Val}}
+          {{demoA1Val}}
         </p>
       </div>
       <div class="form-row">
@@ -30,49 +30,49 @@
         </ShowFormItem>
       </div>
     </div>
-    <!-----------------------[1]------------------------->
+    <!-----------------------[ A1 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>1. With defaults</h2>
+        <h2>A1. With defaults</h2>
         <p>
           Here we are using the child's defaults for label, help, extra and status. We are also using the child's validation.
         </p>
         <p>
-          {{ demo1Val }}
+          {{ demoA1Val }}
         </p>
       </div>
       <div class="form-row">
-        <ShowFormItem ref="demo1" help label extra>
-          <DemoInput v-model="demo1Val"/>
+        <ShowFormItem ref="demoA1" help label extra>
+          <DemoInput v-model="demoA1Val"/>
         </ShowFormItem>
       </div>
     </div>
-    <!-----------------------[2]------------------------->
+    <!-----------------------[ A2 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>2. With validation and help override</h2>
+        <h2>A2. With validation and help override</h2>
         <p>
           This example uses validation provided by the parent component. In this example, instead of numbers, only letters are allowed.
         </p>
       </div>
       <div class="form-row">
-        <ShowFormItem label :help="demo2Validity.help" :status="demo2Validity.status">
-          <DemoInput v-model="demo2Val" placeholder="Enter text only..."/>
+        <ShowFormItem label :help="demoA2Validity.help" :status="demoA2Validity.status">
+          <DemoInput v-model="demoA2Val" placeholder="Enter text only..."/>
         </ShowFormItem>
       </div>
     </div>
-    <!-----------------------[3]------------------------->
+    <!-----------------------[ A3 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>3. Using slots</h2>
+        <h2>A3. Using slots</h2>
         <p>
           Passing slotted content to child component work as expected. This example also shows override of label and extra by parent.
         </p>
       </div>
       <div class="form-row">
         <ShowFormItem label='Label overridden by outer' extra='Extra overridden by outer'>
-          <DemoInput v-model="demo3Val" placeholder="Foo">
-            <!-- slotted content -->
+          <DemoInput v-model="demoA3Val" placeholder="Foo">
+            <!-- slotted content for <DemoInput> -->
             <template v-slot:prefix>
               <a-icon type="question"/>
             </template>
@@ -80,7 +80,7 @@
         </ShowFormItem>
       </div>
     </div>
-    <!-----------------------[H]------------------------->
+    <!-----------------------[ H ]------------------------->
     <header>
       <h1>Demo with grouped child</h1>
       <p>
@@ -89,16 +89,16 @@
         <a href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyGrouped.vue">Source.</a>
       </p>
     </header>
-    <!-----------------------[4]------------------------->
+    <!-----------------------[ B1 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>4. With defaults</h2>
+        <h2>B1. With defaults</h2>
         <p>
           Using the child's defaults. Notice that there is a unified label and "extra" text.
           <br/>
-          Input value "{{demo4InputVal}}"
+          Input value "{{demoB1InputVal}}"
           <br/>
-          Select value "{{demo4SelectVal}}"
+          Select value "{{demoB1SelectVal}}"
           <br/>
           Error count: {{}}
         </p>
@@ -106,16 +106,16 @@
       <div class="form-row">
         <ShowFormItem ref="MyGrouped" label help status extra>
           <DemoGroupedInput1
-            :inputValue.sync="demo4InputVal"
-            :selectValue.sync="demo4SelectVal"
+            :inputValue.sync="demoB1InputVal"
+            :selectValue.sync="demoB1SelectVal"
           />
         </ShowFormItem>
       </div>
     </div>
-    <!-----------------------[5]------------------------->
+    <!-----------------------[ B2 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>5. Three inputs</h2>
+        <h2>B2. Three inputs</h2>
         <p>
           To do.
         </p>
@@ -123,9 +123,9 @@
       <div class="form-row">
         <ShowFormItem label help status extra>
           <DemoGroupedInput2
-            :inputLeftValue.sync="demo5InputLeftVal"
-            :inputRightValue.sync="demo5RightLeftVal"
-            :selectValue.sync="demo5SelectVal"
+            :inputLeftValue.sync="demoB2InputLeftVal"
+            :inputRightValue.sync="demoB2RightLeftVal"
+            :selectValue.sync="demoB2SelectVal"
           />
         </ShowFormItem>
       </div>
@@ -150,19 +150,19 @@ export default Vue.extend({
   },
   data() {
     return {
-      demo1Val: undefined as undefined | string,
-      demo2Val: undefined as undefined | string,
-      demo3Val: undefined as undefined | string,
-      demo4InputVal: '',
-      demo4SelectVal: 'Jen',
-      demo5InputLeftVal: '',
-      demo5RightLeftVal: '',
-      demo5SelectVal: 'John',
+      demoA1Val: undefined as undefined | string,
+      demoA2Val: undefined as undefined | string,
+      demoA3Val: undefined as undefined | string,
+      demoB1InputVal: '',
+      demoB1SelectVal: 'Jen',
+      demoB2InputLeftVal: '',
+      demoB2RightLeftVal: '',
+      demoB2SelectVal: 'John',
     }
   },
   computed: {
-    demo2Validity() {
-      if (!this.demo2Val || /^[A-Za-z]*$/.test(this.demo2Val)) {
+    demoA2Validity() {
+      if (!this.demoA2Val || /^[A-Za-z]*$/.test(this.demoA2Val)) {
         return {
           status: 'success',
           help: 'This help provided by outer component',

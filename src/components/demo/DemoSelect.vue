@@ -33,7 +33,7 @@ export default Vue.extend({
         value: this.value,
         label: 'Child: label text',
         extra: 'Child: extra text',
-        help: 'This help provided by child',
+        help: 'Child: help text',
       }),
     }
   },
