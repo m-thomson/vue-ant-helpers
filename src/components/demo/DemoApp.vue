@@ -30,74 +30,10 @@
         </ShowFormItem>
       </div>
     </div>
-    <!-----------------------[ A1 ]------------------------->
-    <div class="demo-row">
-      <div class="describe">
-        <h2 id="A1">A1. With defaults <a href="#A1">#</a></h2>
-        <p>
-          Here we are using the child's defaults for label, help, extra and status. We are also using the child's validation.
-        </p>
-        <p>
-          {{ demoA1Val }}
-        </p>
-      </div>
-      <div class="form-row">
-        <ShowFormItem ref="demoA1" help label extra>
-          <DemoInput v-model="demoA1Val"/>
-        </ShowFormItem>
-      </div>
-    </div>
-    <!-----------------------[ A2 ]------------------------->
-    <div class="demo-row">
-      <div class="describe">
-        <h2 id="A2">A2. With validation and help override <a href="#A2">#</a></h2>
-        <p>
-          This example uses validation provided by the parent component. In this example, instead of numbers, only letters are allowed.
-        </p>
-      </div>
-      <div class="form-row">
-        <ShowFormItem label :help="demoA2Validity.help" :status="demoA2Validity.status">
-          <DemoInput v-model="demoA2Val" placeholder="Enter text only..."/>
-        </ShowFormItem>
-      </div>
-    </div>
-    <!-----------------------[ A3 ]------------------------->
-    <div class="demo-row">
-      <div class="describe">
-        <h2 id="A3">A3. Using slots <a href="#A3">#</a></h2>
-        <p>
-          Passing slotted content to child component work as expected. This example also shows override of label and extra by parent.
-        </p>
-      </div>
-      <div class="form-row">
-        <ShowFormItem label='Label overridden by outer' extra='Extra overridden by outer'>
-          <DemoInput v-model="demoA3Val" placeholder="Foo">
-            <!-- slotted content for <DemoInput> -->
-            <template v-slot:prefix>
-              <a-icon type="question"/>
-            </template>
-          </DemoInput>
-        </ShowFormItem>
-      </div>
-    </div>
-    <!-----------------------[ A4 ]------------------------->
-    <div class="demo-row">
-      <div class="describe">
-        <h2 id="A4">A4. Using tooltip <a href="#A4">#</a></h2>
-        <p>
-          Example using tooltip.
-        </p>
-      </div>
-      <div class="form-row">
-        <ShowFormItem label='Label overridden by outer' extra='Extra overridden by outer' help>
-          <ShowFormItemTip>
-            <span slot="title">This is a tooltip</span>
-            <DemoSelect v-model="demoA4Val" help/>
-          </ShowFormItemTip>
-        </ShowFormItem>
-      </div>
-    </div>
-    <!-----------------------[ H ]------------------------->
+    <demoA1/>
+    <demoA2/>
+    <demoA3/>
+    <demoA4/>
     <header>
       <h1>Demo with grouped child</h1>
       <p>
@@ -106,48 +42,8 @@
         <a href="https://github.com/m-thomson/vue-ant-helpers/blob/main/src/components/demo/MyGrouped.vue">Source.</a>
       </p>
     </header>
-    <!-----------------------[ B1 ]------------------------->
-    <div class="demo-row">
-      <div class="describe">
-        <h2 id="B1">B1. With defaults <a href="#B1">#</a></h2>
-        <p>
-          Using the child's defaults. Notice that there is a unified label and "extra" text.
-          <br/>
-          Input value "{{demoB1InputVal}}"
-          <br/>
-          Select value "{{demoB1SelectVal}}"
-          <br/>
-          Error count: {{}}
-        </p>
-      </div>
-      <div class="form-row">
-        <ShowFormItem ref="MyGrouped" label help status extra>
-          <DemoGroupedInput1
-            :inputValue.sync="demoB1InputVal"
-            :selectValue.sync="demoB1SelectVal"
-          />
-        </ShowFormItem>
-      </div>
-    </div>
-    <!-----------------------[ B2 ]------------------------->
-    <div class="demo-row">
-      <div class="describe">
-        <h2 id="B2">B2. Three inputs <a href="#B2">#</a></h2>
-        <p>
-          To do.
-        </p>
-      </div>
-      <div class="form-row">
-        <ShowFormItem label help status extra>
-          <DemoGroupedInput2
-            :inputLeftValue.sync="demoB2InputLeftVal"
-            :inputRightValue.sync="demoB2RightLeftVal"
-            :selectValue.sync="demoB2SelectVal"
-          />
-        </ShowFormItem>
-      </div>
-    </div>
-    <!------------------------------------------------------>
+    <demoB1/>
+    <demoB2/>
   </div>
 </template>
 <script lang="ts">
@@ -156,6 +52,7 @@ import DemoInput from './DemoInput.vue'
 import DemoSelect from './DemoSelect.vue'
 import DemoGroupedInput1 from './DemoGroupedInput1.vue'
 import DemoGroupedInput2 from './DemoGroupedInput2.vue'
+import { demos } from './DemoPage'
 
 export default Vue.extend({
   name: 'DemoApp',
@@ -164,34 +61,14 @@ export default Vue.extend({
     DemoSelect,
     DemoGroupedInput1,
     DemoGroupedInput2,
+    ...demos
   },
   data() {
     return {
       demoA1Val: undefined as undefined | string,
-      demoA2Val: undefined as undefined | string,
-      demoA3Val: undefined as undefined | string,
-      demoA4Val: undefined as undefined | string,
-      demoB1InputVal: '',
-      demoB1SelectVal: 'Jen',
-      demoB2InputLeftVal: '',
-      demoB2RightLeftVal: '',
-      demoB2SelectVal: 'John',
     }
   },
-  computed: {
-    demoA2Validity() {
-      if (!this.demoA2Val || /^[A-Za-z]*$/.test(this.demoA2Val)) {
-        return {
-          status: 'success',
-          help: 'This help provided by outer component',
-        }
-      }
-      return {
-        status: 'error',
-        help: 'Outer component says: Only letters allowed!',
-      }
-    },
-  },
+
 })
 </script>
 <style lang="scss">
