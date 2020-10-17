@@ -1,4 +1,5 @@
 import ShowFormItem from './components/ShowFormItem.vue'
+import ShowFormItemTip from './components/ShowFormItemTip.vue'
 import { FormItem } from '@/components/FormSVC'
 
 import {
@@ -10,6 +11,7 @@ import {
   Popover,
   Row,
   Select,
+  Tooltip,
 } from "ant-design-vue";
 
 import 'ant-design-vue/lib/button/style'
@@ -20,6 +22,7 @@ import 'ant-design-vue/lib/input/style'
 import 'ant-design-vue/lib/popover/style'
 import 'ant-design-vue/lib/row/style'
 import 'ant-design-vue/lib/select/style'
+import 'ant-design-vue/lib/tooltip/style'
 
 
 export default {
@@ -33,9 +36,11 @@ export default {
     Vue.use(Icon);
     Vue.use(Select);
     Vue.use(Select.Option);
+    Vue.use(Tooltip);
 
     // Register globally
     Vue.component('ShowFormItem', ShowFormItem)
+    Vue.component('ShowFormItemTip', ShowFormItemTip)
 
     // Attach class to global Vue object
     Vue.prototype.$FormItem = FormItem

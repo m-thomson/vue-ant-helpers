@@ -80,6 +80,23 @@
         </ShowFormItem>
       </div>
     </div>
+    <!-----------------------[ A4 ]------------------------->
+    <div class="demo-row">
+      <div class="describe">
+        <h2>A4. Using tooltip</h2>
+        <p>
+          Example using tooltip.
+        </p>
+      </div>
+      <div class="form-row">
+        <ShowFormItem label='Label overridden by outer' extra='Extra overridden by outer' help>
+          <ShowFormItemTip>
+            <span slot="title">This is a tooltip</span>
+            <DemoSelect v-model="demoA4Val" help/>
+          </ShowFormItemTip>
+        </ShowFormItem>
+      </div>
+    </div>
     <!-----------------------[ H ]------------------------->
     <header>
       <h1>Demo with grouped child</h1>
@@ -153,6 +170,7 @@ export default Vue.extend({
       demoA1Val: undefined as undefined | string,
       demoA2Val: undefined as undefined | string,
       demoA3Val: undefined as undefined | string,
+      demoA4Val: undefined as undefined | string,
       demoB1InputVal: '',
       demoB1SelectVal: 'Jen',
       demoB2InputLeftVal: '',
