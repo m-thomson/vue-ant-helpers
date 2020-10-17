@@ -10,7 +10,7 @@
     <!-----------------------[ A0 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>A0. With defaults</h2>
+        <h2 id="A0">A0. With defaults <a href="#A0">#</a></h2>
         <p>
           Here we are using the child's defaults for label, help, extra and status. We are also using the child's validation.
         </p>
@@ -33,7 +33,7 @@
     <!-----------------------[ A1 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>A1. With defaults</h2>
+        <h2 id="A1">A1. With defaults <a href="#A1">#</a></h2>
         <p>
           Here we are using the child's defaults for label, help, extra and status. We are also using the child's validation.
         </p>
@@ -50,7 +50,7 @@
     <!-----------------------[ A2 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>A2. With validation and help override</h2>
+        <h2 id="A2">A2. With validation and help override <a href="#A2">#</a></h2>
         <p>
           This example uses validation provided by the parent component. In this example, instead of numbers, only letters are allowed.
         </p>
@@ -64,7 +64,7 @@
     <!-----------------------[ A3 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>A3. Using slots</h2>
+        <h2 id="A3">A3. Using slots <a href="#A3">#</a></h2>
         <p>
           Passing slotted content to child component work as expected. This example also shows override of label and extra by parent.
         </p>
@@ -83,7 +83,7 @@
     <!-----------------------[ A4 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>A4. Using tooltip</h2>
+        <h2 id="A4">A4. Using tooltip <a href="#A4">#</a></h2>
         <p>
           Example using tooltip.
         </p>
@@ -109,7 +109,7 @@
     <!-----------------------[ B1 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>B1. With defaults</h2>
+        <h2 id="B1">B1. With defaults <a href="#B1">#</a></h2>
         <p>
           Using the child's defaults. Notice that there is a unified label and "extra" text.
           <br/>
@@ -132,7 +132,7 @@
     <!-----------------------[ B2 ]------------------------->
     <div class="demo-row">
       <div class="describe">
-        <h2>B2. Three inputs</h2>
+        <h2 id="B2">B2. Three inputs <a href="#B2">#</a></h2>
         <p>
           To do.
         </p>
@@ -235,9 +235,6 @@ header {
   }
   .ant-form-extra {
     background-color: azure;
-  }
-  .ant-form-item-children {
-    background-color: red;
   }
 }
 </style>
