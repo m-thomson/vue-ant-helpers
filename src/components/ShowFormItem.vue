@@ -68,7 +68,7 @@ export default Vue.extend({
   data() {
     return {
       /** Array of Child vNodes  */
-      slottedChild: undefined as undefined | TFormItemNode,
+      childInstance: undefined as undefined | TFormItemNode,
       /** Generate correct ant-col-* class */
       stretchClass: this.stretch ? 'ant-col-' + this.stretch : undefined,
     }
@@ -76,22 +76,26 @@ export default Vue.extend({
   mounted() {
     if (this.$slots.default?.length !== 1)
       throw new Error(`<FormItem> must have exactly one child.`)
-    this.slottedChild = (this.$slots.default as any)[0].componentInstance as TFormItemNode
+    this.childInstance = (this.$slots.default as any)[0].componentInstance as TFormItemNode
+    if (this.childInstance.$options.name === 'ShowFormItemTip') {
+      // ShowFormItemTip.Anonymous.Trigger.Anonymous.HERE
+      this.childInstance = this.$vnode?.componentInstance?.$children[0]?.$children[0]?.$children[0]?.$children[0]
+    }
   },
   computed: {
     /** Computes the definitive label to use. */
     itemLabel():string {
-      return parentOrChildVal(this.label, () => this.slottedChild?.formItem?.label || '')
+      return parentOrChildVal(this.label, () => this.childInstance?.formItem?.label || '')
     },
     /** Computes the definitive "extra"  text to use. */
     itemExtra():string {
-      return parentOrChildVal(this.extra, () => this.slottedChild?.formItem?.extra || '')
+      return parentOrChildVal(this.extra, () => this.childInstance?.formItem?.extra || '')
     },
     itemHelp():string {
-      return parentOrChildVal(this.help, () => this.slottedChild?.formItem?.help || '')
+      return parentOrChildVal(this.help, () => this.childInstance?.formItem?.help || '')
     },
     itemStatus():string {
-      return parentOrChildVal(this.status, () => this.slottedChild?.formItem?.status || '')
+      return parentOrChildVal(this.status, () => this.childInstance?.formItem?.status || '')
     },
   },
 })
