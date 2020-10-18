@@ -27,7 +27,22 @@
     "less-loader": "^7.0.2",
     "node-sass": "^4.14.1",
     "sass-loader": "^10.0.3",
+    "ts-jest": "^26.4.1",
     "typescript": "~3.9.3",
+    "vue-jest": "^3.0.7",
     "vue-template-compiler": "^2.6.12"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testURL": "http://localhost/"
   }
 }
